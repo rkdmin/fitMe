@@ -6,7 +6,7 @@
 여러가지 카테고리의 옷 상품을 구매할 수 있는 쇼핑몰 프로젝트이다. 
 <br>
 
-## 🧾 ERD
+## ERD
 
 https://www.erdcloud.com/d/y3sFavJkybtpSCNdi
 <br>

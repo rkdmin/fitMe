@@ -5,6 +5,13 @@ plugins {
     id 'jacoco'
 }
 
+jacocoTestReport {
+    reports {
+        csv.enabled true
+        xml.enabled true
+    }
+}
+
 group = 'com.zerobase'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
@@ -33,9 +40,3 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-jacocoTestReport {
-    reports {
-        csv.enabled true
-        xml.enabled true
-    }
-}

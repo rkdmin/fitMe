@@ -29,17 +29,28 @@ public class MemberService implements UserDetailsService {
     }
 
     public Member register(Auth.SignUp member){
-        Optional<Member> optionalMember = this.memberRepository.findByUsername(member.getUsername());
+        Optional<Member> optionalMember = memberRepository.findByUsername(member.getUsername());
         if(!optionalMember.isPresent()){
             throw new MemberException(ErrorCode.ALREADY_EXIST_ID);
         }
 
-        member.setPassword(this.passwordEncoder.encode(member.getPassword()));
+        member.setPassword(passwordEncoder.encode(member.getPassword()));
         return memberRepository.save(member.toEntity());
     }
 
-    public Member authenticate(){
-        return null;
+    public Member login(Auth.SignIn member){
+        Optional<Member> optionalMember = memberRepository.findByUsername(member.getUsername());
+        if(!optionalMember.isPresent()){
+            throw new MemberException(ErrorCode.LOGIN_FAIL, "존재하지 않는 ID 입니다.");
+        }
+
+
+        if(passwordEncoder.matches(member.getPassword(), optionalMember.get().getPassword())){
+            throw new MemberException(ErrorCode.LOGIN_FAIL);
+        }
+
+        return optionalMember.get();
     }
+
 
 }

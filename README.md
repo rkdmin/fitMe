@@ -49,7 +49,7 @@ https://www.erdcloud.com/d/y3sFavJkybtpSCNdi
 
   
 
-
+ㅁㄴㅇㄴㅁ
 > 회원 정보 수정 []
 
 - 고객은 이메일 외의 정보들은 모두 수정이 가능하다.

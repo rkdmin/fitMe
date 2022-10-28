@@ -1,5 +1,6 @@
 package com.zerobase.fitme.security;
 
+import com.zerobase.fitme.service.MemberService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -7,6 +8,9 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Date;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -17,6 +21,7 @@ public class TokenProvider {
     private String secretKey;
     private static final String KEY_ROLES = "roles";
     private static final long TOKEN_EXPIRE_TIME = 1000 * 60 * 60;// 1시간
+    private final MemberService memberService;
 
     /**
      * 토큰 발급
@@ -38,6 +43,12 @@ public class TokenProvider {
                 .setExpiration(expiredDate)// 토큰 만료 시간
                 .signWith(SignatureAlgorithm.HS512, this.secretKey)// 사용할 암호화 알고리즘, 비밀키
                 .compact();
+    }
+
+    // jwt토큰으로부터 인증 정보를 가져옴
+    public Authentication getAuthentication(String jwt){
+        UserDetails userDetails = memberService.loadUserByUsername(getUsername(jwt));
+        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
     public String getUsername(String token){

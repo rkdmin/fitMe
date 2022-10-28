@@ -23,6 +23,7 @@ public class Auth {
         @Pattern(regexp="^(?=.*[a-zA-Z])(?=.*\\d)(?=.*\\W).{8,16}$", message = "비밀번호는 영어, 숫자, 특수문자 포함해서 8~16자리 이내로 입력해주세요.")
         private String password;
         
+        @NotBlank(message = "권한을 설정해주세요.")
         private String roles;
 
         public Member toEntity(){

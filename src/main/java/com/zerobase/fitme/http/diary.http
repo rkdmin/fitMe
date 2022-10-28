@@ -1,0 +1,23 @@
+### create diary
+POST http://localhost:8080/create/diary?date=2022-03-03
+Content-Type: application/json
+
+{
+  "text" : "영화봄"
+}
+
+### read diary
+GET http://localhost:8080/read/diary?date=4000-05-20
+Accept: application/json
+
+### read diaries
+GET http://localhost:8080/read/diaries?startDate=2022-03-03&endDate=2022-05-20
+Accept: application/json
+
+### update diary
+PUT http://localhost:8080/update/diary?date=2022-05-20
+Content-Type: application/json
+
+{
+  "text" : "수정됨"
+}

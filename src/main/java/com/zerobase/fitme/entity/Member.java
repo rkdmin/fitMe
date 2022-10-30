@@ -1,14 +1,23 @@
 package com.zerobase.fitme.entity;
 
+import static com.zerobase.fitme.type.EmailStatus.*;
+
+import com.zerobase.fitme.model.Auth.SignUp;
+import com.zerobase.fitme.type.EmailStatus;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,9 +31,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Builder
-@Entity(name = "MEMBER")
+@Entity
 public class Member implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,12 +42,34 @@ public class Member implements UserDetails {
 
     private String email;
 
-    private String nickname;
+    private String emailKey;
+
+    @Enumerated(EnumType.STRING)
+    private EmailStatus emailStatus;
 
     private String password;
 
     // 권한 정보
     private String roles;
+
+    // 멤버상세정보, 멤버사이즈정보 일대일 매핑
+    @OneToOne
+    @JoinColumn(name = "member_detail_id")
+    private MemberDetail memberDetail;
+    @OneToOne
+    @JoinColumn(name = "member_size_id")
+    private MemberSize memberSize;
+
+    public static Member toEntity(SignUp request) {
+        return Member.builder()
+            .username(request.getUsername())
+            .email(request.getEmail())
+            .emailKey(UUID.randomUUID().toString())// 랜덤 uuid키
+            .emailStatus(F)// 인증 미완료
+            .password(request.getPassword())// 서비스에서 암호화 처리함
+            .roles(request.getRoles())
+            .build();
+    }
 
 
     @Override

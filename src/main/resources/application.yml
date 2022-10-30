@@ -17,8 +17,18 @@ spring:
       hibernate:
         format_sql: true
         show_sql: true
-
   jwt:
     secret: cmtkbWluLWZpdG1lLXNwcmluZy1ib290LWp3dC1zZWNyZXQta2V5
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: 22rkdmin@gmail.com
+    password: qchptkcrbowydfeh
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+  path: localhost:8080
 
 

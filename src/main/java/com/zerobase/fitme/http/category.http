@@ -1,0 +1,27 @@
+### 카테고리 등록
+POST http://localhost:8080/admin/category/register
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImlhdCI6MTY2NzQ4MjY4MiwiZXhwIjoxNjY3NDg2MjgyfQ.XhsihuBSCfOT0SD41KybrS0PvDOnQZVGpUsHEpCk_o8rFDfDYfq6xGY2z9goR7WQ1-d-fepxqajIe4-4XC7OJQ
+Content-Type: application/json
+
+{
+  "categoryName": "냥냥"
+}
+
+### 로그인
+POST http://localhost:8080/member/signin
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "abc1234!"
+}
+
+### 이메일 인증
+GET http://localhost:8080/member/email/20f0aacf-5b98-4cdd-a299-e78ecb041e93
+Accept: application/json
+
+### test
+GET http://localhost:8080/member/test
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImlhdCI6MTY2NzQ4MjQ3MSwiZXhwIjoxNjY3NDg2MDcxfQ.lIrYEL6MHaDIGfwwOl-C5Md3Raq8y7aXoDf5N0kXsD7cjcup9rnkzl4jL2phTjca9GA3Rt6NFsVxhYsl7tNLVQ
+Accept: application/json
+

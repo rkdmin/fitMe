@@ -20,6 +20,13 @@ public class GlobalExceptionHandler {
         return new ErrorResponse(e.getErrorCode(), e.getErrorMassage());
     }
 
+    @ExceptionHandler(CategoryException.class)
+    public ErrorResponse handelCategoryException(CategoryException e){
+        log.error("{} is occurred", e.getErrorMassage());
+
+        return new ErrorResponse(e.getErrorCode(), e.getErrorMassage());
+    }
+
 //     다 거르고 마지막 예외
     @ExceptionHandler(Exception.class)
     public ErrorResponse handelException(Exception e){

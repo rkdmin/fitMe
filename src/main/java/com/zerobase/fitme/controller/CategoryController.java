@@ -2,13 +2,10 @@ package com.zerobase.fitme.controller;
 
 import static com.zerobase.fitme.type.ErrorCode.INTERNAL_SERVER_ERROR;
 
-import com.zerobase.fitme.entity.Member;
 import com.zerobase.fitme.exception.MemberException;
-import com.zerobase.fitme.model.Auth;
 import com.zerobase.fitme.model.RegCategory;
-import com.zerobase.fitme.security.TokenProvider;
+import com.zerobase.fitme.model.UdtCategory;
 import com.zerobase.fitme.service.CategoryService;
-import com.zerobase.fitme.service.MemberService;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +36,15 @@ public class CategoryController {
         categoryService.register(request);
 
         return "카테고리 등록이 완료되었습니다.";
+    }
+
+    @PreAuthorize("hasRole('ADMIN')") // 관리자만 접속 가능
+    @PatchMapping("/edit")
+    public String patch(@RequestBody UdtCategory.Request request){
+
+        categoryService.patch(request);
+
+        return "카테고리 수정이 완료되었습니다.";
     }
 
     private static void validation(BindingResult bindingResult) {

@@ -1,0 +1,34 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:test
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
+  h2:
+    console:
+      enabled: true
+  jpa:
+    defer-datasource-initialization: true
+    database-platform: H2
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+  jwt:
+    secret: cmtkbWluLWZpdG1lLXNwcmluZy1ib290LWp3dC1zZWNyZXQta2V5
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: 22rkdmin@gmail.com
+    password: qchptkcrbowydfeh
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+  path: localhost:8080
+
+

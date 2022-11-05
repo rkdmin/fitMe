@@ -6,6 +6,7 @@ import com.zerobase.fitme.model.RegBrand;
 import com.zerobase.fitme.repository.BrandRepository;
 import com.zerobase.fitme.type.ErrorCode;
 import java.time.LocalDate;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,15 +22,23 @@ public class BrandService {
      * @param request
      */
     public void register(RegBrand.Request request) {
-        if(brandRepository.findByBrandName(request.getBrandName()).isPresent()){
+        if (brandRepository.findByBrandName(request.getBrandName()).isPresent()) {
             throw new BrandException(ErrorCode.ALREADY_EXIST_BRAND_NAME);
         }
 
         brandRepository.save(Brand.builder()
-                .brandName(request.getBrandName())
-                .address(request.getAddress())
-                .phone(request.getPhone())
-                .regDt(LocalDate.now())
-                .build());
-        }
+            .brandName(request.getBrandName())
+            .address(request.getAddress())
+            .phone(request.getPhone())
+            .regDt(LocalDate.now())
+            .build());
+    }
+
+    /**
+     * 브랜드 조회
+     * @return
+     */
+    public List<Brand> read() {
+        return brandRepository.findAll();
+    }
 }

@@ -9,6 +9,7 @@ import com.zerobase.fitme.exception.CategoryException;
 import com.zerobase.fitme.model.RegCategory;
 import com.zerobase.fitme.model.UdtCategory;
 import com.zerobase.fitme.repository.CategoryRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -49,6 +50,14 @@ public class CategoryService{
         category.patch(request);
 
         categoryRepository.save(category);
+    }
+
+    /**
+     * 카테고리 조회
+     * @return
+     */
+    public List<Category> read() {
+        return categoryRepository.findAll();
     }
 
     private void validationPatch(UdtCategory.Request request) {

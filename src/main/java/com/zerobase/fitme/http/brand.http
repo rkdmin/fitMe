@@ -1,0 +1,12 @@
+### 브랜드 등록
+POST http://localhost:8080/admin/brand/register
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImlhdCI6MTY2NzY0NTkzNiwiZXhwIjoxNjY3NjQ5NTM2fQ.820kdjKi9AdT3wScdgcOIYzDjU7G4fuMI7962gVAkEzeWke_DOSaLYU6BfYHjELSYh56TBmHo1ChQCaicHWaJQ
+Content-Type: application/json
+
+{
+  "brandName": "브랜드명",
+  "address": "수원",
+  "phone": "010-1234-5678"
+}
+
+

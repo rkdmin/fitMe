@@ -14,7 +14,8 @@ public enum ErrorCode {
     INVALID_EMAIL_KEY("유효한 이메일 키가 아닙니다."),
     CATEGORY_NOT_FOUND("해당 카테고리를 찾을 수 없습니다."),
     ALREADY_EXIST_CATEGORY_NAME("이미 존재하는 카테고리명 입니다."),
-    INVALID_REQUEST("잘못된 요청입니다.")
+    INVALID_REQUEST("잘못된 요청입니다."),
+    ALREADY_EXIST_BRAND_NAME("이미 존재하는 브랜드입니다.."),
 
 
     ;

@@ -4,7 +4,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MR
 Content-Type: application/json
 
 {
-  "brandName": "브랜드명2",
+  "brandName": "브랜드명32",
   "address": "수원",
   "phone": "010-1234-5678"
 
@@ -15,4 +15,14 @@ GET http://localhost:8080/admin/brand
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImlhdCI6MTY2NzY0NTkzNiwiZXhwIjoxNjY3NjQ5NTM2fQ.820kdjKi9AdT3wScdgcOIYzDjU7G4fuMI7962gVAkEzeWke_DOSaLYU6BfYHjELSYh56TBmHo1ChQCaicHWaJQ
 Accept: application/json
 
+### 브랜드 수정
+PATCH http://localhost:8080/admin/brand/edit
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImlhdCI6MTY2NzQ4ODA4MCwiZXhwIjoxNjY3NDkxNjgwfQ.q76Iu_J4mdLa_OvVUGGFLrn-uPQnwpxk_LTJV2rNMaAW-BzySHyVfB09uDwvisLsEs2UM_M2ZgASHyjjcPHFAw
+Content-Type: application/json
 
+{
+  "id" : 1,
+  "brandName": "브랜12드명2",
+  "address": "수원212",
+  "phone": "010-12324-5678"
+}

@@ -70,6 +70,16 @@ public class BrandService {
         return brandRepository.save(brand);
     }
 
+    /**
+     * 브렌드 삭제
+     * @param id
+     */
+    public void delete(Long id) {
+        brandRepository.delete(
+            brandRepository.findById(id).orElseThrow(() -> new BrandException(BRAND_NOT_FOUND))
+        );
+    }
+
     private void validationPatch(UdtBrand.Request request) {
         if(!StringUtils.hasText(request.getBrandName()) && !StringUtils.hasText(request.getPhone())
             && !StringUtils.hasText(request.getAddress())){
@@ -79,4 +89,6 @@ public class BrandService {
             throw new BrandException(ALREADY_EXIST_BRAND_NAME);
         }
     }
+
+
 }

@@ -9,6 +9,7 @@ import com.zerobase.fitme.exception.ModelException;
 import com.zerobase.fitme.model.RegBrand;
 import com.zerobase.fitme.model.RegModel;
 import com.zerobase.fitme.model.UdtBrand;
+import com.zerobase.fitme.model.UdtModel;
 import com.zerobase.fitme.service.BrandService;
 import com.zerobase.fitme.service.ModelService;
 import java.util.List;
@@ -50,18 +51,18 @@ public class ModelController {
     public List<Model> read(){
         return modelService.read();
     }
-//
-//    @PreAuthorize("hasRole('ADMIN')") // 관리자만 접속 가능
-//    @PatchMapping("/edit")
-//    public Brand patch(@RequestBody UdtBrand.Request request){
-//
-//        return brandService.patch(request);
-//    }
-//
+
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")// 관리자, 매니저만 접속가능
+    @PatchMapping("/edit/{id}")
+    public Model patch(@RequestBody UdtModel.Request request, @PathVariable Long id){
+
+        return modelService.patch(request, id);
+    }
+
 //    @PreAuthorize("hasRole('ADMIN')") // 관리자만 접속 가능
 //    @DeleteMapping("/delete/{id}")
-//    public String patch(@PathVariable Long id){
-//        brandService.delete(id);
+//    public String delete(@PathVariable Long id){
+//        modelService.delete(id);
 //        return "브랜드 삭제가 완료되었습니다.";
 //    }
 

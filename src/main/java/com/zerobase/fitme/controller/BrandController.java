@@ -56,7 +56,7 @@ public class BrandController {
 
     @PreAuthorize("hasRole('ADMIN')") // 관리자만 접속 가능
     @DeleteMapping("/delete/{id}")
-    public String patch(@PathVariable Long id){
+    public String delete(@PathVariable Long id){
         brandService.delete(id);
         return "브랜드 삭제가 완료되었습니다.";
     }

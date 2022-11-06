@@ -1,13 +1,19 @@
 package com.zerobase.fitme.service;
 
+import static com.zerobase.fitme.type.ErrorCode.INVALID_REQUEST;
+
 import com.zerobase.fitme.entity.Model;
+import com.zerobase.fitme.exception.ModelException;
 import com.zerobase.fitme.model.RegModel;
+import com.zerobase.fitme.model.UdtModel;
 import com.zerobase.fitme.repository.ModelRepository;
+import com.zerobase.fitme.type.ErrorCode;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 @Slf4j
 @Service
@@ -38,22 +44,22 @@ public class ModelService {
         return modelRepository.findAll();
     }
 
-//    /**
-//     * 브랜드 수정
-//     * @param request
-//     * @return Brand
-//     */
-//    public Brand patch(Request request) {
-//        validationPatch(request);
-//
-//        Brand brand = brandRepository.findById(request.getId()).orElseThrow(() ->
-//            new BrandException(BRAND_NOT_FOUND)
-//        );
-//
-//        brand.patch(request);
-//
-//        return brandRepository.save(brand);
-//    }
+    /**
+     * 모델 수정
+     * @param request
+     * @return Model
+     */
+    public Model patch(UdtModel.Request request, Long id) {
+        validationPatch(request);
+
+        Model model = modelRepository.findById(id).orElseThrow(() ->
+            new ModelException(ErrorCode.MODEL_NOT_FOUND)
+        );
+
+        model.patch(request);
+
+        return modelRepository.save(model);
+    }
 //
 //    /**
 //     * 브렌드 삭제
@@ -65,15 +71,13 @@ public class ModelService {
 //        );
 //    }
 //
-//    private void validationPatch(Request request) {
-//        if(!StringUtils.hasText(request.getBrandName()) && !StringUtils.hasText(request.getPhone())
-//            && !StringUtils.hasText(request.getAddress())){
-//            throw new BrandException(INVALID_REQUEST);
-//        }
-//        if(brandRepository.findByBrandName(request.getBrandName()).isPresent()){
-//            throw new BrandException(ALREADY_EXIST_BRAND_NAME);
-//        }
-//    }
+    private void validationPatch(UdtModel.Request request) {
+        // 값이 하나도 없는 경우
+        if(request.getHeight() == null && request.getTopSize() == null && request.getBottomSize() == null &&
+            request.getShoesSize() == null && !StringUtils.hasText(request.getModelName())){
+            throw new ModelException(INVALID_REQUEST);
+        }
+    }
 
 
 }

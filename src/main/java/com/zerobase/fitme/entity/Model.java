@@ -1,6 +1,6 @@
 package com.zerobase.fitme.entity;
 
-import com.zerobase.fitme.model.UdtBrand.Request;
+import com.zerobase.fitme.model.UdtModel;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
@@ -32,17 +32,23 @@ public class Model {
     private LocalDateTime regDt;
     private LocalDateTime udtDt;
 
-    public void patch(Request request) {
-//        if(StringUtils.hasText(request.getBrandName())){
-//            this.brandName = request.getBrandName();
-//        }
-//        if(StringUtils.hasText(request.getAddress())){
-//            this.address = request.getAddress();
-//        }
-//        if(StringUtils.hasText(request.getPhone())){
-//            this.phone = request.getPhone();
-//        }
-//
-//        this.udtDt = LocalDate.now();
+    public void patch(UdtModel.Request request) {
+        if(request.getHeight() != null){
+            this.height = request.getHeight();
+        }
+        if(request.getTopSize() != null){
+            this.topSize = request.getTopSize();
+        }
+        if(request.getBottomSize() != null){
+            this.bottomSize = request.getBottomSize();
+        }
+        if(request.getShoesSize() != null){
+            this.shoesSize = request.getShoesSize();
+        }
+        if(StringUtils.hasText(request.getModelName())){
+            this.modelName = request.getModelName();
+        }
+
+        this.udtDt = LocalDateTime.now();
     }
 }

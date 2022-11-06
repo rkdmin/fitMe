@@ -1,13 +1,27 @@
-### 브랜드 등록
-POST http://localhost:8080/admin/brand/register
+### 상품 등록
+POST http://localhost:8080/admin-manager/item/register
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImlhdCI6MTY2NzY0NTkzNiwiZXhwIjoxNjY3NjQ5NTM2fQ.820kdjKi9AdT3wScdgcOIYzDjU7G4fuMI7962gVAkEzeWke_DOSaLYU6BfYHjELSYh56TBmHo1ChQCaicHWaJQ
 Content-Type: application/json
 
 {
-  "brandName": "브랜드명32",
-  "url": "http",
-  "phone": "010-1234-5678"
-
+  "itemName": "상품이름1",
+  "url" : "url",
+  "price" : 1000,
+  "saleRate" : 10,
+  "content" : "내용1",
+  "cnt" : 10,
+  "brandId" : 1,
+  "sellerId" : 1,
+  "modelId" : 1,
+  "RegItemInfo" : {
+    "material" : "소재",
+    "colorList" : [
+      "123"
+    ],
+    "sizeList" : [
+      "123"
+    ]
+  }
 }
 
 ### 브랜드 조회

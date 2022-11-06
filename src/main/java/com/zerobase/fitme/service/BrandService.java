@@ -11,14 +11,17 @@ import com.zerobase.fitme.model.UdtBrand;
 import com.zerobase.fitme.repository.BrandRepository;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class BrandService {
     private final BrandRepository brandRepository;
 
@@ -40,12 +43,26 @@ public class BrandService {
     }
 
     /**
+     * 브랜드 엔티티로 바로 등록
+     * @param brand
+     */
+    public void register(Brand brand) {
+        brandRepository.save(brand);
+    }
+
+    /**
      * 브랜드 조회
      * @return
      */
     public List<Brand> read() {
         return brandRepository.findAll();
     }
+
+    /**
+     * 브랜드 아이디로 조회
+     * @return
+     */
+    public Optional<Brand> readById(Long id) { return brandRepository.findById(id); }
 
     /**
      * 브랜드 수정

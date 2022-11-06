@@ -11,19 +11,22 @@ import com.zerobase.fitme.repository.SellerRepository;
 import com.zerobase.fitme.type.ErrorCode;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class SellerService {
     private final SellerRepository sellerRepository;
 
     /**
-     * 샐러 등록
+     * 판매자 등록
      * @param request
      */
     public void register(RegSeller.Request request) {
@@ -39,11 +42,27 @@ public class SellerService {
     }
 
     /**
+     * 판매자 엔티티로 바로 등록
+     * @param seller
+     */
+    public void register(Seller seller) {
+        sellerRepository.save(seller);
+    }
+
+    /**
      * 판매자 조회
      * @return
      */
     public List<Seller> read() {
         return sellerRepository.findAll();
+    }
+
+    /**
+     * 판매자 아이디로 조회
+     * @return
+     */
+    public Optional<Seller> readById(Long id) {
+        return sellerRepository.findById(id);
     }
 
     /**

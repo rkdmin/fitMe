@@ -28,10 +28,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class MemberService implements UserDetailsService {
 
     private final PasswordEncoder passwordEncoder;
@@ -83,6 +85,11 @@ public class MemberService implements UserDetailsService {
         if(!passwordEncoder.matches(member.getPassword(), optionalMember.get().getPassword())){
             throw new MemberException(LOGIN_FAIL);
         }
+
+        // 테스트 할 때 불편해서 주석처리
+//        if(optionalMember.get().getEmailStatus() == EmailStatus.F){
+//            throw new MemberException(LOGIN_FAIL);
+//        }
 
         return optionalMember.get();
     }

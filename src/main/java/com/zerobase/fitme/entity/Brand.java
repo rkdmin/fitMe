@@ -25,7 +25,7 @@ public class Brand {
     private Long id;
 
     private String brandName;
-    private String address;
+    private String url;
     private String phone;
     private LocalDate regDt;
     private LocalDate udtDt;
@@ -35,7 +35,7 @@ public class Brand {
             this.brandName = request.getBrandName();
         }
         if(StringUtils.hasText(request.getAddress())){
-            this.address = request.getAddress();
+            this.url = request.getAddress();
         }
         if(StringUtils.hasText(request.getPhone())){
             this.phone = request.getPhone();

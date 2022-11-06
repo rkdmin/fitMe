@@ -1,20 +1,14 @@
 package com.zerobase.fitme.service;
 
-import static com.zerobase.fitme.type.ErrorCode.*;
-import static com.zerobase.fitme.type.ErrorCode.ALREADY_EXIST_CATEGORY_NAME;
-import static com.zerobase.fitme.type.ErrorCode.CATEGORY_NOT_FOUND;
+import static com.zerobase.fitme.type.ErrorCode.ALREADY_EXIST_BRAND_NAME;
+import static com.zerobase.fitme.type.ErrorCode.BRAND_NOT_FOUND;
 import static com.zerobase.fitme.type.ErrorCode.INVALID_REQUEST;
 
 import com.zerobase.fitme.entity.Brand;
-import com.zerobase.fitme.entity.Category;
 import com.zerobase.fitme.exception.BrandException;
-import com.zerobase.fitme.exception.CategoryException;
 import com.zerobase.fitme.model.RegBrand;
 import com.zerobase.fitme.model.UdtBrand;
-import com.zerobase.fitme.model.UdtBrand.Request;
-import com.zerobase.fitme.model.UdtCategory;
 import com.zerobase.fitme.repository.BrandRepository;
-import com.zerobase.fitme.type.ErrorCode;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +33,7 @@ public class BrandService {
 
         brandRepository.save(Brand.builder()
             .brandName(request.getBrandName())
-            .address(request.getAddress())
+            .url(request.getUrl())
             .phone(request.getPhone())
             .regDt(LocalDate.now())
             .build());
@@ -82,7 +76,7 @@ public class BrandService {
 
     private void validationPatch(UdtBrand.Request request) {
         if(!StringUtils.hasText(request.getBrandName()) && !StringUtils.hasText(request.getPhone())
-            && !StringUtils.hasText(request.getAddress())){
+            && !StringUtils.hasText(request.getUrl())){
             throw new BrandException(INVALID_REQUEST);
         }
         if(brandRepository.findByBrandName(request.getBrandName()).isPresent()){

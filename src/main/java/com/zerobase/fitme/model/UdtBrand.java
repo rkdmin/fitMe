@@ -7,7 +7,7 @@ public class UdtBrand {
     public static class Request{
         private Long id;
         private String brandName;
-        private String address;
+        private String url;
         private String phone;
     }
 }

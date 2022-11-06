@@ -34,8 +34,8 @@ public class Brand {
         if(StringUtils.hasText(request.getBrandName())){
             this.brandName = request.getBrandName();
         }
-        if(StringUtils.hasText(request.getAddress())){
-            this.url = request.getAddress();
+        if(StringUtils.hasText(request.getUrl())){
+            this.url = request.getUrl();
         }
         if(StringUtils.hasText(request.getPhone())){
             this.phone = request.getPhone();

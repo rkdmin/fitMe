@@ -59,12 +59,12 @@ public class ModelController {
         return modelService.patch(request, id);
     }
 
-//    @PreAuthorize("hasRole('ADMIN')") // 관리자만 접속 가능
-//    @DeleteMapping("/delete/{id}")
-//    public String delete(@PathVariable Long id){
-//        modelService.delete(id);
-//        return "브랜드 삭제가 완료되었습니다.";
-//    }
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")// 관리자, 매니저만 접속가능
+    @DeleteMapping("/delete/{id}")
+    public String delete(@PathVariable Long id){
+        modelService.delete(id);
+        return "모델 삭제가 완료되었습니다.";
+    }
 
     private static void validation(BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

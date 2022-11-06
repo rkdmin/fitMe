@@ -1,5 +1,6 @@
 package com.zerobase.fitme.service;
 
+import static com.zerobase.fitme.type.ErrorCode.*;
 import static com.zerobase.fitme.type.ErrorCode.INVALID_REQUEST;
 
 import com.zerobase.fitme.entity.Model;
@@ -53,24 +54,24 @@ public class ModelService {
         validationPatch(request);
 
         Model model = modelRepository.findById(id).orElseThrow(() ->
-            new ModelException(ErrorCode.MODEL_NOT_FOUND)
+            new ModelException(MODEL_NOT_FOUND)
         );
 
         model.patch(request);
 
         return modelRepository.save(model);
     }
-//
-//    /**
-//     * 브렌드 삭제
-//     * @param id
-//     */
-//    public void delete(Long id) {
-//        brandRepository.delete(
-//            brandRepository.findById(id).orElseThrow(() -> new BrandException(BRAND_NOT_FOUND))
-//        );
-//    }
-//
+
+    /**
+     * 모델 삭제
+     * @param id
+     */
+    public void delete(Long id) {
+        modelRepository.delete(
+            modelRepository.findById(id).orElseThrow(() -> new ModelException(MODEL_NOT_FOUND))
+        );
+    }
+
     private void validationPatch(UdtModel.Request request) {
         // 값이 하나도 없는 경우
         if(request.getHeight() == null && request.getTopSize() == null && request.getBottomSize() == null &&

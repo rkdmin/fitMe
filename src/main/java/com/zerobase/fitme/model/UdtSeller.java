@@ -7,7 +7,6 @@ import lombok.Data;
 public class UdtSeller {
     @Data
     public static class Request{
-        private Long id;
         private String companyName;
         private String sellerName;
         private String address;

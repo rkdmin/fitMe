@@ -1,6 +1,7 @@
 package com.zerobase.fitme.entity;
 
 import com.zerobase.fitme.model.UdtBrand.Request;
+import com.zerobase.fitme.model.UdtSeller;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.util.StringUtils;
 
 @Getter
 @Setter
@@ -32,17 +34,26 @@ public class Seller {
     private LocalDateTime regDt;
     private LocalDateTime udtDt;
 
-    public void patch(Request request) {
-//        if(StringUtils.hasText(request.getBrandName())){
-//            this.brandName = request.getBrandName();
-//        }
-//        if(StringUtils.hasText(request.getAddress())){
-//            this.url = request.getAddress();
-//        }
-//        if(StringUtils.hasText(request.getPhone())){
-//            this.phone = request.getPhone();
-//        }
-//
-//        this.udtDt = LocalDate.now();
+    public void patch(UdtSeller.Request request) {
+        if(StringUtils.hasText(request.getCompanyName())){
+            this.companyName = request.getCompanyName();
+        }
+        if(StringUtils.hasText(request.getSellerName())){
+            this.sellerName = request.getSellerName();
+        }
+        if(StringUtils.hasText(request.getAddress())){
+            this.address = request.getAddress();
+        }
+        if(StringUtils.hasText(request.getPhone())){
+            this.phone = request.getPhone();
+        }
+        if(StringUtils.hasText(request.getBusinessNumber())){
+            this.businessNumber = request.getBusinessNumber();
+        }
+        if(StringUtils.hasText(request.getEmail())){
+            this.email = request.getEmail();
+        }
+
+        this.udtDt = LocalDateTime.now();
     }
 }

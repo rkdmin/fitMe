@@ -17,7 +17,8 @@ public enum ErrorCode {
     INVALID_REQUEST("잘못된 요청입니다."),
     ALREADY_EXIST_BRAND_NAME("이미 존재하는 브랜드입니다."),
     BRAND_NOT_FOUND("해당 브랜드를 찾을 수 없습니다."),
-    MODEL_NOT_FOUND("해당 모델을 찾을 수 없습니다.")
+    MODEL_NOT_FOUND("해당 모델을 찾을 수 없습니다."),
+    SELLER_NOT_FOUND("해당 판매자를 찾을 수 없습니다.")
 
 
     ;

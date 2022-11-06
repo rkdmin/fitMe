@@ -5,9 +5,11 @@ import static com.zerobase.fitme.type.ErrorCode.INTERNAL_SERVER_ERROR;
 import com.zerobase.fitme.entity.Brand;
 import com.zerobase.fitme.entity.Seller;
 import com.zerobase.fitme.exception.BrandException;
+import com.zerobase.fitme.exception.SellerException;
 import com.zerobase.fitme.model.RegBrand;
 import com.zerobase.fitme.model.RegSeller;
 import com.zerobase.fitme.model.UdtBrand;
+import com.zerobase.fitme.model.UdtSeller;
 import com.zerobase.fitme.service.BrandService;
 import com.zerobase.fitme.service.SellerService;
 import java.util.List;
@@ -50,13 +52,17 @@ public class SellerController {
         return sellerService.read();
     }
 
-//    @PreAuthorize("hasRole('ADMIN')") // 관리자만 접속 가능
-//    @PatchMapping("/edit")
-//    public Brand patch(@RequestBody UdtBrand.Request request){
-//
-//        return brandService.patch(request);
-//    }
-//
+    @PreAuthorize("hasRole('ADMIN')") // 관리자만 접속 가능
+    @PatchMapping("/edit/{id}")
+    public Seller patch(@RequestBody @Valid UdtSeller.Request request, BindingResult bindingResult,
+        @PathVariable Long id){
+
+        // @valid 발생
+        validation(bindingResult);
+
+        return sellerService.patch(request, id);
+    }
+
 //    @PreAuthorize("hasRole('ADMIN')") // 관리자만 접속 가능
 //    @DeleteMapping("/delete/{id}")
 //    public String delete(@PathVariable Long id){
@@ -67,7 +73,7 @@ public class SellerController {
     private static void validation(BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<FieldError> list = bindingResult.getFieldErrors();
-            throw new BrandException(INTERNAL_SERVER_ERROR, list.get(0).getDefaultMessage());
+            throw new SellerException(INTERNAL_SERVER_ERROR, list.get(0).getDefaultMessage());
         }
     }
 }

@@ -3,10 +3,10 @@ POST http://localhost:8080/member/signup
 Content-Type: application/json
 
 {
-  "username": "admin1",
+  "username": "admin12",
   "password": "abc1234!",
-  "roles": "ROLE_USER",
-  "email": "22rkdmin@naver.com"
+  "roles": "ROLE_MANAGER",
+  "email": "22rkdmin@nav2er.com"
 }
 
 ### 로그인
@@ -14,7 +14,7 @@ POST http://localhost:8080/member/signin
 Content-Type: application/json
 
 {
-  "username": "admin",
+  "username": "admin12",
   "password": "abc1234!"
 }
 

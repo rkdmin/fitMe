@@ -4,6 +4,7 @@ import com.zerobase.fitme.entity.Model;
 import com.zerobase.fitme.model.RegModel;
 import com.zerobase.fitme.repository.ModelRepository;
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -29,14 +30,14 @@ public class ModelService {
                 .build());
     }
 
-//    /**
-//     * 브랜드 조회
-//     * @return
-//     */
-//    public List<Brand> read() {
-//        return brandRepository.findAll();
-//    }
-//
+    /**
+     * 모델 조회
+     * @return
+     */
+    public List<Model> read() {
+        return modelRepository.findAll();
+    }
+
 //    /**
 //     * 브랜드 수정
 //     * @param request

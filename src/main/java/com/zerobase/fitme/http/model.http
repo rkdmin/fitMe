@@ -1,6 +1,6 @@
 ### 모델 등록
 POST http://localhost:8080/admin-manager/model/register
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9..820kdjKi9AdT3wScdgcOIYzDjU7G4fuMI7962gVAkEzeWke_DOSaLYU6BfYHjELSYh56TBmHo1ChQCaicHWaJQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjEyIiwicm9sZXMiOiJST0xFX01BTkFHRVIiLCJpYXQiOjE2Njc3MTU5MTksImV4cCI6MTY2NzcxOTUxOX0.1wE7E-MatpT0ZIgHApv2zaV3nIccvk38YNcds-dJaAck-0l-LBRNVlp1S90jmTu37P2AIKSCfH4ZFu_9V1C5qA
 Content-Type: application/json
 
 {
@@ -11,9 +11,9 @@ Content-Type: application/json
   "modelName" : "홍길동"
 }
 
-### 브랜드 조회
-GET http://localhost:8080/admin/brand
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImlhdCI6MTY2NzY0NTkzNiwiZXhwIjoxNjY3NjQ5NTM2fQ.820kdjKi9AdT3wScdgcOIYzDjU7G4fuMI7962gVAkEzeWke_DOSaLYU6BfYHjELSYh56TBmHo1ChQCaicHWaJQ
+### 모델 조회
+GET http://localhost:8080/admin-manager/model/
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjEyIiwicm9sZXMiOiJST0xFX01BTkFHRVIiLCJpYXQiOjE2Njc3MTU5MTksImV4cCI6MTY2NzcxOTUxOX0.1wE7E-MatpT0ZIgHApv2zaV3nIccvk38YNcds-dJaAck-0l-LBRNVlp1S90jmTu37P2AIKSCfH4ZFu_9V1C5qA
 Accept: application/json
 
 ### 브랜드 수정

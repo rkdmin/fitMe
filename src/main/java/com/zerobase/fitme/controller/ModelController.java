@@ -3,6 +3,7 @@ package com.zerobase.fitme.controller;
 import static com.zerobase.fitme.type.ErrorCode.INTERNAL_SERVER_ERROR;
 
 import com.zerobase.fitme.entity.Brand;
+import com.zerobase.fitme.entity.Model;
 import com.zerobase.fitme.exception.BrandException;
 import com.zerobase.fitme.exception.ModelException;
 import com.zerobase.fitme.model.RegBrand;
@@ -33,7 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ModelController {
     private final ModelService modelService;
 
-    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")// 관리자 매니저만 접속가능
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")// 관리자, 매니저만 접속가능
     @PostMapping("/register")
     public String register(@RequestBody @Valid RegModel.Request request, BindingResult bindingResult){
         // @valid 발생
@@ -44,11 +45,11 @@ public class ModelController {
         return "모델 등록이 완료되었습니다.";
     }
 
-//    @PreAuthorize("hasRole('ADMIN')") // 관리자만 접속 가능
-//    @GetMapping("")
-//    public List<Brand> read(){
-//        return brandService.read();
-//    }
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")// 관리자, 매니저만 접속가능
+    @GetMapping("")
+    public List<Model> read(){
+        return modelService.read();
+    }
 //
 //    @PreAuthorize("hasRole('ADMIN')") // 관리자만 접속 가능
 //    @PatchMapping("/edit")

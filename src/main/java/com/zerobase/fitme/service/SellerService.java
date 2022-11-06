@@ -4,6 +4,7 @@ import com.zerobase.fitme.entity.Seller;
 import com.zerobase.fitme.model.RegSeller;
 import com.zerobase.fitme.repository.SellerRepository;
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -30,13 +31,13 @@ public class SellerService {
                 .build());
     }
 
-//    /**
-//     * 브랜드 조회
-//     * @return
-//     */
-//    public List<Brand> read() {
-//        return brandRepository.findAll();
-//    }
+    /**
+     * 판매자 조회
+     * @return
+     */
+    public List<Seller> read() {
+        return sellerRepository.findAll();
+    }
 //
 //    /**
 //     * 브랜드 수정

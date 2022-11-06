@@ -3,6 +3,7 @@ package com.zerobase.fitme.controller;
 import static com.zerobase.fitme.type.ErrorCode.INTERNAL_SERVER_ERROR;
 
 import com.zerobase.fitme.entity.Brand;
+import com.zerobase.fitme.entity.Seller;
 import com.zerobase.fitme.exception.BrandException;
 import com.zerobase.fitme.model.RegBrand;
 import com.zerobase.fitme.model.RegSeller;
@@ -43,12 +44,12 @@ public class SellerController {
         return "판매자 등록이 완료되었습니다.";
     }
 
-//    @PreAuthorize("hasRole('ADMIN')") // 관리자만 접속 가능
-//    @GetMapping("")
-//    public List<Brand> read(){
-//        return brandService.read();
-//    }
-//
+    @PreAuthorize("hasRole('ADMIN')") // 관리자만 접속 가능
+    @GetMapping("")
+    public List<Seller> read(){
+        return sellerService.read();
+    }
+
 //    @PreAuthorize("hasRole('ADMIN')") // 관리자만 접속 가능
 //    @PatchMapping("/edit")
 //    public Brand patch(@RequestBody UdtBrand.Request request){

@@ -57,6 +57,7 @@ public class ModelService {
             new ModelException(MODEL_NOT_FOUND)
         );
 
+        model.setId(id);
         model.patch(request);
 
         return modelRepository.save(model);

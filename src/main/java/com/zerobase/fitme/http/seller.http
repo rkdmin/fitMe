@@ -31,7 +31,7 @@ Content-Type: application/json
   "email" : "123@123"
 }
 
-### 브랜드 삭제
-DELETE http://localhost:8080/admin/brand/delete/1
+### 판매자 삭제
+DELETE http://localhost:8080/admin/seller/delete/1
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImlhdCI6MTY2NzQ4ODA4MCwiZXhwIjoxNjY3NDkxNjgwfQ.q76Iu_J4mdLa_OvVUGGFLrn-uPQnwpxk_LTJV2rNMaAW-BzySHyVfB09uDwvisLsEs2UM_M2ZgASHyjjcPHFAw
 

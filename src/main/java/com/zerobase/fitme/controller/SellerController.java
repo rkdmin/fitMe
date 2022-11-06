@@ -63,12 +63,12 @@ public class SellerController {
         return sellerService.patch(request, id);
     }
 
-//    @PreAuthorize("hasRole('ADMIN')") // 관리자만 접속 가능
-//    @DeleteMapping("/delete/{id}")
-//    public String delete(@PathVariable Long id){
-//        brandService.delete(id);
-//        return "브랜드 삭제가 완료되었습니다.";
-//    }
+    @PreAuthorize("hasRole('ADMIN')") // 관리자만 접속 가능
+    @DeleteMapping("/delete/{id}")
+    public String delete(@PathVariable Long id){
+        sellerService.delete(id);
+        return "판매자 삭제가 완료되었습니다.";
+    }
 
     private static void validation(BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

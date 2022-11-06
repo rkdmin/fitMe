@@ -3,9 +3,9 @@ POST http://localhost:8080/member/signup
 Content-Type: application/json
 
 {
-  "username": "admin",
+  "username": "admin1",
   "password": "abc1234!",
-  "roles": "ROLE_ADMIN",
+  "roles": "ROLE_USER",
   "email": "22rkdmin@naver.com"
 }
 

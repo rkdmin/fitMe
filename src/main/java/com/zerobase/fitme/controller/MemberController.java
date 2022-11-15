@@ -13,6 +13,7 @@ import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,17 +32,17 @@ public class MemberController {
     private final TokenProvider tokenProvider;
 
     @PostMapping("/signup")
-    public String signup(@RequestBody @Valid Auth.SignUp request, BindingResult bindingResult){
+    public ResponseEntity<String> signup(@RequestBody @Valid Auth.SignUp request, BindingResult bindingResult){
         // @valid 발생
         validation(bindingResult);
 
         memberService.register(request);
 
-        return "회원가입이 완료되었습니다.";
+        return ResponseEntity.ok("이메일 전송이 완료되었습니다.");
     }
 
     @PostMapping("/signin")
-    public String signin(@RequestBody @Valid Auth.SignIn request, BindingResult bindingResult){
+    public ResponseEntity<String> signin(@RequestBody @Valid Auth.SignIn request, BindingResult bindingResult){
         // @valid 발생
         validation(bindingResult);
 
@@ -49,20 +50,20 @@ public class MemberController {
 
         String token = tokenProvider.generateToken(member.getUsername(), member.getRoles());
 
-        return token;
+        return ResponseEntity.ok(token);
     }
 
     @GetMapping("/email/{emailKey}")
-    public String emailAuth(@PathVariable String emailKey){
+    public ResponseEntity<String> emailAuth(@PathVariable String emailKey){
 
         memberService.emailAuth(emailKey);
 
-        return "이메일 인증이 완료되었습니다.";
+        return ResponseEntity.ok("이메일 인증이 완료되었습니다.");
     }
 
     @GetMapping("/test")
-    public String test(){
-        return "권한 테스트";
+    public ResponseEntity<String> test(){
+        return ResponseEntity.ok("권한 테스트");
     }
 
     private static void validation(BindingResult bindingResult) {

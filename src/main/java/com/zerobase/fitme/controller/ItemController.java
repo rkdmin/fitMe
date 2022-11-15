@@ -11,6 +11,7 @@ import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -28,13 +29,13 @@ public class ItemController {
 
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")// 관리자, 매니저만 접속가능
     @PostMapping("/register")
-    public String register(@RequestBody @Valid RegItem.Request request, BindingResult bindingResult){
+    public ResponseEntity<String> register(@RequestBody @Valid RegItem.Request request, BindingResult bindingResult){
         // @valid 발생
         validation(bindingResult);
 
         itemService.register(request);
 
-        return "상품 등록이 완료되었습니다.";
+        return ResponseEntity.ok("상품 등록이 완료되었습니다.");
     }
 
 //    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")// 관리자, 매니저만 접속가능

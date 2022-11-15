@@ -13,6 +13,7 @@ import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -34,33 +35,32 @@ public class ModelController {
 
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")// 관리자, 매니저만 접속가능
     @PostMapping("/register")
-    public String register(@RequestBody @Valid RegModel.Request request, BindingResult bindingResult){
+    public ResponseEntity<String> register(@RequestBody @Valid RegModel.Request request, BindingResult bindingResult){
         // @valid 발생
         validation(bindingResult);
 
         modelService.register(request);
 
-        return "모델 등록이 완료되었습니다.";
+        return ResponseEntity.ok("모델 등록이 완료되었습니다.");
     }
 
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")// 관리자, 매니저만 접속가능
     @GetMapping("")
-    public List<Model> read(){
-        return modelService.read();
+    public ResponseEntity<List<Model>> read(){
+        return ResponseEntity.ok(modelService.read());
     }
 
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")// 관리자, 매니저만 접속가능
     @PatchMapping("/edit/{id}")
-    public Model patch(@RequestBody UdtModel.Request request, @PathVariable Long id){
-
-        return modelService.patch(request, id);
+    public ResponseEntity<Model> patch(@RequestBody UdtModel.Request request, @PathVariable Long id){
+        return ResponseEntity.ok(modelService.patch(request, id));
     }
 
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")// 관리자, 매니저만 접속가능
     @DeleteMapping("/delete/{id}")
-    public String delete(@PathVariable Long id){
+    public ResponseEntity<String> delete(@PathVariable Long id){
         modelService.delete(id);
-        return "모델 삭제가 완료되었습니다.";
+        return ResponseEntity.ok("모델 삭제가 완료되었습니다.");
     }
 
     private static void validation(BindingResult bindingResult) {

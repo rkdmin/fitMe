@@ -14,7 +14,7 @@ POST http://localhost:8080/member/signin
 Content-Type: application/json
 
 {
-  "username": "admin12",
+  "username": "admin122",
   "password": "abc1234!"
 }
 

@@ -1,15 +1,18 @@
 package com.zerobase.fitme.service;
 
-import static com.zerobase.fitme.type.ErrorCode.*;
+import static com.zerobase.fitme.exception.type.BrandErrorCode.BRAND_NOT_FOUND;
+import static com.zerobase.fitme.exception.type.ModelErrorCode.MODEL_NOT_FOUND;
+import static com.zerobase.fitme.exception.type.SellerErrorCode.SELLER_NOT_FOUND;
 
 import com.zerobase.fitme.entity.Brand;
 import com.zerobase.fitme.entity.Item;
 import com.zerobase.fitme.entity.Model;
 import com.zerobase.fitme.entity.Seller;
-import com.zerobase.fitme.exception.ItemException;
+import com.zerobase.fitme.exception.BrandException;
+import com.zerobase.fitme.exception.ModelException;
+import com.zerobase.fitme.exception.SellerException;
 import com.zerobase.fitme.model.RegItem;
 import com.zerobase.fitme.repository.ItemRepository;
-import com.zerobase.fitme.type.ErrorCode;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,14 +36,14 @@ public class ItemService {
     public void register(RegItem.Request request) {
         // 브랜드, 판매자, 모델을 모두 가져옴
         Brand brand = brandService.readById(request.getBrandId())
-            .orElseThrow(() -> new ItemException(BRAND_NOT_FOUND));
+            .orElseThrow(() -> new BrandException(BRAND_NOT_FOUND));
         Seller seller = sellerService.readById(request.getSellerId())
-            .orElseThrow(() -> new ItemException(SELLER_NOT_FOUND));
+            .orElseThrow(() -> new SellerException(SELLER_NOT_FOUND));
         Model model = modelService.readById(request.getModelId())
-            .orElseThrow(() -> new ItemException(MODEL_NOT_FOUND));
+            .orElseThrow(() -> new ModelException(MODEL_NOT_FOUND));
 
         // 할인 계산
-        request.setSaleRate(calculate(request.getPrice(), request.getSaleRate()));
+        request.setSaleRate(calculateSalePrice(request.getPrice(), request.getSaleRate()));
 
         // 상세정보 저장
         // 클라이언트에서 받아온 String 데이터를 enum 데이터 리스트로 어떻게 바꾸는지 모르겠습니다.
@@ -64,11 +67,11 @@ public class ItemService {
         );
     }
 
-    private Long calculate(Long price, Long saleRate) {
+    private Long calculateSalePrice(Long price, Long saleRate) {
         if(saleRate <= 0){
             return price;
         }
-        return price * (saleRate / 100);
+        return price - (price * (saleRate / 100));
     }
 
 }

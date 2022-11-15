@@ -1,19 +1,18 @@
 package com.zerobase.fitme.controller;
 
-import static com.zerobase.fitme.type.ErrorCode.*;
+import static com.zerobase.fitme.exception.type.ErrorCode.*;
+import static com.zerobase.fitme.exception.type.MemberErrorCode.INVALID_REQUEST;
 
 import com.zerobase.fitme.entity.Member;
 import com.zerobase.fitme.exception.MemberException;
+import com.zerobase.fitme.exception.type.MemberErrorCode;
 import com.zerobase.fitme.model.Auth;
 import com.zerobase.fitme.security.TokenProvider;
 import com.zerobase.fitme.service.MemberService;
-import com.zerobase.fitme.type.ErrorCode;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -69,7 +68,7 @@ public class MemberController {
     private static void validation(BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<FieldError> list = bindingResult.getFieldErrors();
-            throw new MemberException(INTERNAL_SERVER_ERROR, list.get(0).getDefaultMessage().toString());
+            throw new MemberException(INVALID_REQUEST, list.get(0).getDefaultMessage().toString());
         }
     }
 }

@@ -1,14 +1,14 @@
 package com.zerobase.fitme.service;
 
-import static com.zerobase.fitme.type.ErrorCode.*;
-import static com.zerobase.fitme.type.ErrorCode.INVALID_REQUEST;
+
+import static com.zerobase.fitme.exception.type.SellerErrorCode.INVALID_REQUEST;
+import static com.zerobase.fitme.exception.type.SellerErrorCode.SELLER_NOT_FOUND;
 
 import com.zerobase.fitme.entity.Seller;
 import com.zerobase.fitme.exception.SellerException;
 import com.zerobase.fitme.model.RegSeller;
 import com.zerobase.fitme.model.UdtSeller;
 import com.zerobase.fitme.repository.SellerRepository;
-import com.zerobase.fitme.type.ErrorCode;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;

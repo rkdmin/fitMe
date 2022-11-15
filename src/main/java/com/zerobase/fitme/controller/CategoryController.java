@@ -1,9 +1,8 @@
 package com.zerobase.fitme.controller;
 
-import static com.zerobase.fitme.type.ErrorCode.INTERNAL_SERVER_ERROR;
-
 import com.zerobase.fitme.entity.Category;
 import com.zerobase.fitme.exception.MemberException;
+import com.zerobase.fitme.exception.type.MemberErrorCode;
 import com.zerobase.fitme.model.RegCategory;
 import com.zerobase.fitme.model.UdtCategory;
 import com.zerobase.fitme.service.CategoryService;
@@ -58,7 +57,8 @@ public class CategoryController {
     private static void validation(BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<FieldError> list = bindingResult.getFieldErrors();
-            throw new MemberException(INTERNAL_SERVER_ERROR, list.get(0).getDefaultMessage().toString());
+            throw new MemberException(
+                MemberErrorCode.INVALID_REQUEST, list.get(0).getDefaultMessage().toString());
         }
     }
 }

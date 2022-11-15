@@ -1,16 +1,11 @@
 package com.zerobase.fitme.controller;
 
-import static com.zerobase.fitme.type.ErrorCode.INTERNAL_SERVER_ERROR;
+import static com.zerobase.fitme.exception.type.SellerErrorCode.INVALID_REQUEST;
 
-import com.zerobase.fitme.entity.Brand;
 import com.zerobase.fitme.entity.Seller;
-import com.zerobase.fitme.exception.BrandException;
 import com.zerobase.fitme.exception.SellerException;
-import com.zerobase.fitme.model.RegBrand;
 import com.zerobase.fitme.model.RegSeller;
-import com.zerobase.fitme.model.UdtBrand;
 import com.zerobase.fitme.model.UdtSeller;
-import com.zerobase.fitme.service.BrandService;
 import com.zerobase.fitme.service.SellerService;
 import java.util.List;
 import javax.validation.Valid;
@@ -73,7 +68,7 @@ public class SellerController {
     private static void validation(BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<FieldError> list = bindingResult.getFieldErrors();
-            throw new SellerException(INTERNAL_SERVER_ERROR, list.get(0).getDefaultMessage());
+            throw new SellerException(INVALID_REQUEST, list.get(0).getDefaultMessage());
         }
     }
 }

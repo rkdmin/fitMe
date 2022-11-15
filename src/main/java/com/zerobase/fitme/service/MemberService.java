@@ -1,13 +1,13 @@
 package com.zerobase.fitme.service;
 
+import static com.zerobase.fitme.exception.type.MemberErrorCode.ALREADY_EXIST_ID;
+import static com.zerobase.fitme.exception.type.MemberErrorCode.INVALID_EMAIL_KEY;
+import static com.zerobase.fitme.exception.type.MemberErrorCode.LOGIN_FAIL;
+import static com.zerobase.fitme.exception.type.MemberErrorCode.USER_NOT_FOUND;
+import static com.zerobase.fitme.exception.type.MemberErrorCode.WRONG_ROLES;
 import static com.zerobase.fitme.type.Authority.ROLE_ADMIN;
 import static com.zerobase.fitme.type.Authority.ROLE_MANAGER;
 import static com.zerobase.fitme.type.Authority.ROLE_USER;
-import static com.zerobase.fitme.type.ErrorCode.ALREADY_EXIST_ID;
-import static com.zerobase.fitme.type.ErrorCode.INVALID_EMAIL_KEY;
-import static com.zerobase.fitme.type.ErrorCode.LOGIN_FAIL;
-import static com.zerobase.fitme.type.ErrorCode.USER_NOT_FOUND;
-import static com.zerobase.fitme.type.ErrorCode.WRONG_ROLES;
 
 import com.zerobase.fitme.entity.Member;
 import com.zerobase.fitme.entity.MemberDetail;

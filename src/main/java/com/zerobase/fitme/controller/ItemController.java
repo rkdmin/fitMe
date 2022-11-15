@@ -1,10 +1,11 @@
 package com.zerobase.fitme.controller;
 
-import static com.zerobase.fitme.type.ErrorCode.INTERNAL_SERVER_ERROR;
+import static com.zerobase.fitme.exception.type.ErrorCode.INTERNAL_SERVER_ERROR;
+import static com.zerobase.fitme.exception.type.ItemErrorCode.INVALID_REQUEST;
 
 import com.zerobase.fitme.exception.ItemException;
+import com.zerobase.fitme.exception.type.ItemErrorCode;
 import com.zerobase.fitme.model.RegItem;
-import com.zerobase.fitme.model.RegModel;
 import com.zerobase.fitme.service.ItemService;
 import java.util.List;
 import javax.validation.Valid;
@@ -59,7 +60,7 @@ public class ItemController {
     private static void validation(BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<FieldError> list = bindingResult.getFieldErrors();
-            throw new ItemException(INTERNAL_SERVER_ERROR, list.get(0).getDefaultMessage());
+            throw new ItemException(INVALID_REQUEST, list.get(0).getDefaultMessage());
         }
     }
 }

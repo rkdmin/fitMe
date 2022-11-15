@@ -1,14 +1,13 @@
 package com.zerobase.fitme.service;
 
-import static com.zerobase.fitme.type.ErrorCode.*;
-import static com.zerobase.fitme.type.ErrorCode.INVALID_REQUEST;
+import static com.zerobase.fitme.exception.type.ModelErrorCode.INVALID_REQUEST;
+import static com.zerobase.fitme.exception.type.ModelErrorCode.MODEL_NOT_FOUND;
 
 import com.zerobase.fitme.entity.Model;
 import com.zerobase.fitme.exception.ModelException;
 import com.zerobase.fitme.model.RegModel;
 import com.zerobase.fitme.model.UdtModel;
 import com.zerobase.fitme.repository.ModelRepository;
-import com.zerobase.fitme.type.ErrorCode;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;

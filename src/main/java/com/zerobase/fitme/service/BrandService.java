@@ -1,9 +1,6 @@
 package com.zerobase.fitme.service;
 
-import static com.zerobase.fitme.type.ErrorCode.ALREADY_EXIST_BRAND_NAME;
-import static com.zerobase.fitme.type.ErrorCode.BRAND_NOT_FOUND;
-import static com.zerobase.fitme.type.ErrorCode.INVALID_REQUEST;
-
+import static com.zerobase.fitme.exception.type.BrandErrorCode.*;
 import com.zerobase.fitme.entity.Brand;
 import com.zerobase.fitme.exception.BrandException;
 import com.zerobase.fitme.model.RegBrand;

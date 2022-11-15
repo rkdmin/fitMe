@@ -24,11 +24,11 @@ public class Category{
     private Long id;
 
     private String categoryName;
-    private boolean usingYn;
+    private boolean using;
 
     public void patch(Request request) {
         if(request.getUsingYn() != null){
-            this.usingYn = request.getUsingYn();
+            this.using = request.getUsingYn();
         }
         if(StringUtils.hasText(request.getCategoryName())){
             this.categoryName = request.getCategoryName();

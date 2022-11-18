@@ -36,7 +36,7 @@ public class RegItem {
         @NotNull(message = "모델 번호를 입력하세요")
         private Long modelId;
 
-        // 상품 정보
+        @NotNull
         private RegItemInfo regItemInfo;
     }
 }

@@ -6,6 +6,7 @@ import static com.zerobase.fitme.exception.type.SellerErrorCode.SELLER_NOT_FOUND
 
 import com.zerobase.fitme.entity.Brand;
 import com.zerobase.fitme.entity.Item;
+import com.zerobase.fitme.entity.ItemInfo;
 import com.zerobase.fitme.entity.Model;
 import com.zerobase.fitme.entity.Seller;
 import com.zerobase.fitme.exception.BrandException;
@@ -28,6 +29,7 @@ public class ItemService {
     private final BrandService brandService;
     private final ModelService modelService;
     private final SellerService sellerService;
+    private final ItemInfoService itemInfoService;
 
     /**
      * 상품 등록
@@ -46,9 +48,10 @@ public class ItemService {
         request.setSaleRate(calculateSalePrice(request.getPrice(), request.getSaleRate()));
 
         // 상세정보 저장
-        // 클라이언트에서 받아온 String 데이터를 enum 데이터 리스트로 어떻게 바꾸는지 모르겠습니다.
+        ItemInfo itemInfo = itemInfoService.register(request.getRegItemInfo());
 
-        itemRepository.save(
+        // 아이템저장
+        Item item = itemRepository.save(
             Item.builder()
                 .itemName(request.getItemName())
                 .url(request.getUrl())
@@ -59,12 +62,14 @@ public class ItemService {
                 .view(0)
                 .cnt(request.getCnt())
                 .regDt(LocalDateTime.now())
-                .itemInfo(null)// enum 이슈..
+                .itemInfo(itemInfo)
                 .brand(brand)
                 .seller(seller)
                 .model(model)
                 .build()
         );
+
+        log.info(item.getItemInfo().getColorList().toString());
     }
 
     private Long calculateSalePrice(Long price, Long saleRate) {

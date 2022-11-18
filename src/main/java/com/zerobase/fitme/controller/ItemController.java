@@ -1,10 +1,8 @@
 package com.zerobase.fitme.controller;
 
-import static com.zerobase.fitme.exception.type.ErrorCode.INTERNAL_SERVER_ERROR;
 import static com.zerobase.fitme.exception.type.ItemErrorCode.INVALID_REQUEST;
 
 import com.zerobase.fitme.exception.ItemException;
-import com.zerobase.fitme.exception.type.ItemErrorCode;
 import com.zerobase.fitme.model.RegItem;
 import com.zerobase.fitme.service.ItemService;
 import java.util.List;

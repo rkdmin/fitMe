@@ -13,13 +13,13 @@ Content-Type: application/json
   "brandId" : 1,
   "sellerId" : 1,
   "modelId" : 1,
-  "RegItemInfo" : {
+  "regItemInfo" : {
     "material" : "소재",
     "colorList" : [
-      "123"
+      "red"
     ],
     "sizeList" : [
-      "123"
+      "xl", "xxl"
     ]
   }
 }

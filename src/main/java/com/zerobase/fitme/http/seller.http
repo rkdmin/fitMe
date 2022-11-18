@@ -1,0 +1,37 @@
+### 판매자 등록
+POST http://localhost:8080/admin/seller/register
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImlhdCI6MTY2NzY0NTkzNiwiZXhwIjoxNjY3NjQ5NTM2fQ.820kdjKi9AdT3wScdgcOIYzDjU7G4fuMI7962gVAkEzeWke_DOSaLYU6BfYHjELSYh56TBmHo1ChQCaicHWaJQ
+Content-Type: application/json
+
+{
+  "companyName" : "회사이름",
+  "sellerName" : "대표자이름",
+  "address" : "회사주소",
+  "phone" : "회사번호",
+  "businessNumber" : "사업자등록번호",
+  "email" : "123@123"
+}
+
+### 판매자 조회
+GET http://localhost:8080/admin/seller
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImlhdCI6MTY2NzY0NTkzNiwiZXhwIjoxNjY3NjQ5NTM2fQ.820kdjKi9AdT3wScdgcOIYzDjU7G4fuMI7962gVAkEzeWke_DOSaLYU6BfYHjELSYh56TBmHo1ChQCaicHWaJQ
+Accept: application/json
+
+### 판매자 수정
+PATCH http://localhost:8080/admin/seller/edit/1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImlhdCI6MTY2NzQ4ODA4MCwiZXhwIjoxNjY3NDkxNjgwfQ.q76Iu_J4mdLa_OvVUGGFLrn-uPQnwpxk_LTJV2rNMaAW-BzySHyVfB09uDwvisLsEs2UM_M2ZgASHyjjcPHFAw
+Content-Type: application/json
+
+{
+  "companyName" : "회사이름",
+  "sellerName" : "대표자이름",
+  "address" : "회사주소",
+  "phone" : "회사번호",
+  "businessNumber" : "수정됨",
+  "email" : "123@123"
+}
+
+### 판매자 삭제
+DELETE http://localhost:8080/admin/seller/delete/1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImlhdCI6MTY2NzQ4ODA4MCwiZXhwIjoxNjY3NDkxNjgwfQ.q76Iu_J4mdLa_OvVUGGFLrn-uPQnwpxk_LTJV2rNMaAW-BzySHyVfB09uDwvisLsEs2UM_M2ZgASHyjjcPHFAw
+

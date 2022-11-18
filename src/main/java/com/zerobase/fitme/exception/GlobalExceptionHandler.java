@@ -20,6 +20,41 @@ public class GlobalExceptionHandler {
         return new ErrorResponse(e.getErrorCode(), e.getErrorMassage());
     }
 
+    @ExceptionHandler(CategoryException.class)
+    public ErrorResponse handelCategoryException(CategoryException e){
+        log.error("{} is occurred", e.getErrorMassage());
+
+        return new ErrorResponse(e.getErrorCode(), e.getErrorMassage());
+    }
+
+    @ExceptionHandler(BrandException.class)
+    public ErrorResponse handelBrandException(BrandException e){
+        log.error("{} is occurred", e.getErrorMassage());
+
+        return new ErrorResponse(e.getErrorCode(), e.getErrorMassage());
+    }
+
+    @ExceptionHandler(ModelException.class)
+    public ErrorResponse handelModelException(ModelException e){
+        log.error("{} is occurred", e.getErrorMassage());
+
+        return new ErrorResponse(e.getErrorCode(), e.getErrorMassage());
+    }
+
+    @ExceptionHandler(SellerException.class)
+    public ErrorResponse handelSellerException(SellerException e){
+        log.error("{} is occurred", e.getErrorMassage());
+
+        return new ErrorResponse(e.getErrorCode(), e.getErrorMassage());
+    }
+
+    @ExceptionHandler(ItemException.class)
+    public ErrorResponse handelItemException(ItemException e){
+        log.error("{} is occurred", e.getErrorMassage());
+
+        return new ErrorResponse(e.getErrorCode(), e.getErrorMassage());
+    }
+
 //     다 거르고 마지막 예외
     @ExceptionHandler(Exception.class)
     public ErrorResponse handelException(Exception e){

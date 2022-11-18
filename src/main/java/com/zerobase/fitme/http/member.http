@@ -3,10 +3,10 @@ POST http://localhost:8080/member/signup
 Content-Type: application/json
 
 {
-  "username": "admin",
+  "username": "admin12",
   "password": "abc1234!",
-  "roles": "ROLE_ADMIN",
-  "email": "22rkdmin@naver.com"
+  "roles": "ROLE_MANAGER",
+  "email": "22rkdmin@nav2er.com"
 }
 
 ### 로그인
@@ -14,16 +14,11 @@ POST http://localhost:8080/member/signin
 Content-Type: application/json
 
 {
-  "username": "admin",
+  "username": "admin12",
   "password": "abc1234!"
 }
 
 ### 이메일 인증
 GET http://localhost:8080/member/email/20f0aacf-5b98-4cdd-a299-e78ecb041e93
-Accept: application/json
-
-### test
-GET http://localhost:8080/member/test
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImlhdCI6MTY2Njk4MjYxMiwiZXhwIjoxNjY2OTg2MjEyfQ.7EzXMyvOvu4GoKZrtYub-iE3zwvNO3v4QqrTPXZyeQnFDEEq1HHjYHKeO9q7ZWtfjUK_734biSV6XpOpsti5hQ
 Accept: application/json
 

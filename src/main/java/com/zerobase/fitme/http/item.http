@@ -1,0 +1,47 @@
+### 상품 등록
+POST http://localhost:8080/admin-manager/item/register
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImlhdCI6MTY2NzY0NTkzNiwiZXhwIjoxNjY3NjQ5NTM2fQ.820kdjKi9AdT3wScdgcOIYzDjU7G4fuMI7962gVAkEzeWke_DOSaLYU6BfYHjELSYh56TBmHo1ChQCaicHWaJQ
+Content-Type: application/json
+
+{
+  "itemName": "상품이름1",
+  "url" : "url",
+  "price" : 1000,
+  "saleRate" : 10,
+  "content" : "내용1",
+  "cnt" : 10,
+  "brandId" : 1,
+  "sellerId" : 1,
+  "modelId" : 1,
+  "RegItemInfo" : {
+    "material" : "소재",
+    "colorList" : [
+      "123"
+    ],
+    "sizeList" : [
+      "123"
+    ]
+  }
+}
+
+### 브랜드 조회
+GET http://localhost:8080/admin/brand
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImlhdCI6MTY2NzY0NTkzNiwiZXhwIjoxNjY3NjQ5NTM2fQ.820kdjKi9AdT3wScdgcOIYzDjU7G4fuMI7962gVAkEzeWke_DOSaLYU6BfYHjELSYh56TBmHo1ChQCaicHWaJQ
+Accept: application/json
+
+### 브랜드 수정
+PATCH http://localhost:8080/admin/brand/edit
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImlhdCI6MTY2NzQ4ODA4MCwiZXhwIjoxNjY3NDkxNjgwfQ.q76Iu_J4mdLa_OvVUGGFLrn-uPQnwpxk_LTJV2rNMaAW-BzySHyVfB09uDwvisLsEs2UM_M2ZgASHyjjcPHFAw
+Content-Type: application/json
+
+{
+  "id" : 1,
+  "brandName": "브랜12드명2",
+  "address": "수원212",
+  "phone": "010-12324-5678"
+}
+
+### 브랜드 삭제
+DELETE http://localhost:8080/admin/brand/delete/1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImlhdCI6MTY2NzQ4ODA4MCwiZXhwIjoxNjY3NDkxNjgwfQ.q76Iu_J4mdLa_OvVUGGFLrn-uPQnwpxk_LTJV2rNMaAW-BzySHyVfB09uDwvisLsEs2UM_M2ZgASHyjjcPHFAw
+

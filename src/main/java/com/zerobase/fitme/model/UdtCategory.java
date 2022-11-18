@@ -7,6 +7,5 @@ public class UdtCategory {
     public static class Request{
         Long id;
         private String categoryName;
-        private Boolean usingYn;
     }
 }

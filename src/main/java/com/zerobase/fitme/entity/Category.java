@@ -22,14 +22,9 @@ public class Category{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String categoryName;
-    private boolean using;
 
     public void patch(Request request) {
-        if(request.getUsingYn() != null){
-            this.using = request.getUsingYn();
-        }
         if(StringUtils.hasText(request.getCategoryName())){
             this.categoryName = request.getCategoryName();
         }

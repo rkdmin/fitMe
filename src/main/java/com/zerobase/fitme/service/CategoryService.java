@@ -34,7 +34,6 @@ public class CategoryService{
 
         categoryRepository.save(Category.builder()
                 .categoryName(request.getCategoryName())
-                .using(false)// 아직 등록 안함
                 .build());
         }
 
@@ -63,7 +62,7 @@ public class CategoryService{
     }
 
     private void validationPatch(UdtCategory.Request request) {
-        if(!StringUtils.hasText(request.getCategoryName()) && request.getUsingYn() == null){
+        if(!StringUtils.hasText(request.getCategoryName())){
             throw new CategoryException(INVALID_REQUEST);
         }
         if(categoryRepository.findByCategoryName(request.getCategoryName()).isPresent()){

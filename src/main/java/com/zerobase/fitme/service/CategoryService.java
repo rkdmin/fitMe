@@ -5,15 +5,18 @@ import static com.zerobase.fitme.exception.type.CategoryErrorCode.CATEGORY_NOT_F
 import static com.zerobase.fitme.exception.type.CategoryErrorCode.INVALID_REQUEST;
 
 import com.zerobase.fitme.entity.Category;
+import com.zerobase.fitme.entity.ItemCategory;
 import com.zerobase.fitme.exception.CategoryException;
 import com.zerobase.fitme.model.RegCategory.Request;
 import com.zerobase.fitme.model.UdtCategory;
 import com.zerobase.fitme.repository.CategoryRepository;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 @Slf4j
@@ -68,5 +71,20 @@ public class CategoryService{
         if(categoryRepository.findByCategoryName(request.getCategoryName()).isPresent()){
             throw new CategoryException(ALREADY_EXIST_CATEGORY_NAME);
         }
+    }
+
+    public List<Category> readByCategoryNameList(List<String> categoryNameList) {
+        if(CollectionUtils.isEmpty(categoryNameList)){
+            throw new CategoryException(CATEGORY_NOT_FOUND);
+        }
+
+        List<Category> categoryList = new ArrayList<>();
+        for(String categoryName: categoryNameList){
+            categoryList.add(categoryRepository.findByCategoryName(categoryName).orElseThrow(
+                () -> new CategoryException(CATEGORY_NOT_FOUND)
+            ));
+        }
+
+        return categoryList;
     }
 }

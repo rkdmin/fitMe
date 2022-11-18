@@ -1,12 +1,15 @@
 package com.zerobase.fitme.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -54,4 +57,8 @@ public class Item {
     @ManyToOne
     @JoinColumn(name = "model_id")
     private Model model;
+
+    // 일대다 매핑
+    @OneToMany(mappedBy = "item")
+    private List<ItemCategory> itemCategoryList = new ArrayList<>();
 }

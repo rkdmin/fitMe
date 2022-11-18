@@ -9,3 +9,10 @@ VALUES ('어쩌구컴퍼티', '홍길동', '경기도 수원시 팔달구 2가',
 
 INSERT INTO model(height, top_size, bottom_size, shoes_size, model_name)
 VALUES (173, 55, 30, 250, '김모델');
+
+INSERT INTO category(category_name)
+VALUES ('상의');
+INSERT INTO category(category_name)
+VALUES ('하의');
+INSERT INTO category(category_name)
+VALUES ('신발');

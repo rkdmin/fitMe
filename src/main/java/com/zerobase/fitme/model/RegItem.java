@@ -1,5 +1,6 @@
 package com.zerobase.fitme.model;
 
+import java.util.List;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -38,5 +39,8 @@ public class RegItem {
 
         @NotNull
         private RegItemInfo regItemInfo;
+
+        @NotNull
+        private List<String> categoryNameList;
     }
 }

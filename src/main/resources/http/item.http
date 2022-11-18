@@ -4,7 +4,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MR
 Content-Type: application/json
 
 {
-  "itemName": "상품이름1",
+  "itemName": "상품이름21",
   "url" : "url",
   "price" : 1000,
   "saleRate" : 10,
@@ -21,7 +21,10 @@ Content-Type: application/json
     "sizeList" : [
       "xl", "xxl"
     ]
-  }
+  },
+  "categoryNameList" : [
+    "신발"
+  ]
 }
 
 ### 브랜드 조회

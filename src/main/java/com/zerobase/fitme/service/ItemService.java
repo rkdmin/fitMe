@@ -8,13 +8,12 @@ import com.zerobase.fitme.entity.Brand;
 import com.zerobase.fitme.entity.Category;
 import com.zerobase.fitme.entity.Item;
 import com.zerobase.fitme.entity.ItemCategory;
-import com.zerobase.fitme.entity.ItemInfo;
 import com.zerobase.fitme.entity.Model;
 import com.zerobase.fitme.entity.Seller;
 import com.zerobase.fitme.exception.BrandException;
 import com.zerobase.fitme.exception.ModelException;
 import com.zerobase.fitme.exception.SellerException;
-import com.zerobase.fitme.model.RegItem;
+import com.zerobase.fitme.dto.ItemDto;
 import com.zerobase.fitme.repository.ItemRepository;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -40,7 +39,7 @@ public class ItemService {
      * 상품 등록
      * @param request
      */
-    public void register(RegItem.Request request) {
+    public void register(ItemDto.Request request) {
         // 브랜드, 판매자, 모델, 카테고리를 모두 가져옴
         Brand brand = brandService.readById(request.getBrandId())
             .orElseThrow(() -> new BrandException(BRAND_NOT_FOUND));

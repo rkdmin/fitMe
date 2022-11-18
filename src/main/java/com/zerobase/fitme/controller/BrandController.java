@@ -1,12 +1,10 @@
 package com.zerobase.fitme.controller;
 
 import static com.zerobase.fitme.exception.type.BrandErrorCode.INVALID_REQUEST;
-import static com.zerobase.fitme.exception.type.ErrorCode.INTERNAL_SERVER_ERROR;
 
 import com.zerobase.fitme.entity.Brand;
 import com.zerobase.fitme.exception.BrandException;
-import com.zerobase.fitme.exception.type.BrandErrorCode;
-import com.zerobase.fitme.model.RegBrand;
+import com.zerobase.fitme.dto.BrandDto;
 import com.zerobase.fitme.model.UdtBrand;
 import com.zerobase.fitme.service.BrandService;
 import java.util.List;
@@ -25,7 +23,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @Slf4j
 @RestController
@@ -36,7 +33,7 @@ public class BrandController {
 
     @PreAuthorize("hasRole('ADMIN')") // 관리자만 접속 가능
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody @Valid RegBrand.Request request, BindingResult bindingResult){
+    public ResponseEntity<String> register(@RequestBody @Valid BrandDto.Request request, BindingResult bindingResult){
         // @valid 발생
         validation(bindingResult);
 

@@ -5,9 +5,8 @@ import static com.zerobase.fitme.exception.type.CategoryErrorCode.CATEGORY_NOT_F
 import static com.zerobase.fitme.exception.type.CategoryErrorCode.INVALID_REQUEST;
 
 import com.zerobase.fitme.entity.Category;
-import com.zerobase.fitme.entity.ItemCategory;
 import com.zerobase.fitme.exception.CategoryException;
-import com.zerobase.fitme.model.RegCategory.Request;
+import com.zerobase.fitme.dto.CategoryDto.Request;
 import com.zerobase.fitme.model.UdtCategory;
 import com.zerobase.fitme.repository.CategoryRepository;
 import java.util.ArrayList;

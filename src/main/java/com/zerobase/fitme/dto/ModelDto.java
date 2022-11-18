@@ -1,10 +1,10 @@
-package com.zerobase.fitme.model;
+package com.zerobase.fitme.dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 
-public class RegModel {
+public class ModelDto {
     @Data
     public static class Request{
         @NotNull(message = "키를 입력하세요")

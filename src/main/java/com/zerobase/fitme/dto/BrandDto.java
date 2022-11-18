@@ -1,9 +1,9 @@
-package com.zerobase.fitme.model;
+package com.zerobase.fitme.dto;
 
 import javax.validation.constraints.NotBlank;
 import lombok.Data;
 
-public class RegBrand {
+public class BrandDto {
     @Data
     public static class Request{
         @NotBlank(message = "브랜드명을 입력하세요")

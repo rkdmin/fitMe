@@ -1,4 +1,4 @@
-package com.zerobase.fitme.model;
+package com.zerobase.fitme.dto;
 
 import java.util.List;
 import javax.validation.constraints.Min;
@@ -6,7 +6,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 
-public class RegItem {
+public class ItemDto {
     @Data
     public static class Request{
         @NotBlank(message = "상품명을 입력하세요")
@@ -38,7 +38,7 @@ public class RegItem {
         private Long modelId;
 
         @NotNull
-        private RegItemInfo regItemInfo;
+        private ItemInfoDto regItemInfo;
 
         @NotNull
         private List<String> categoryNameList;

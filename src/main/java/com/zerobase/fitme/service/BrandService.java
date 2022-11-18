@@ -3,7 +3,7 @@ package com.zerobase.fitme.service;
 import static com.zerobase.fitme.exception.type.BrandErrorCode.*;
 import com.zerobase.fitme.entity.Brand;
 import com.zerobase.fitme.exception.BrandException;
-import com.zerobase.fitme.model.RegBrand;
+import com.zerobase.fitme.dto.BrandDto;
 import com.zerobase.fitme.model.UdtBrand;
 import com.zerobase.fitme.repository.BrandRepository;
 import java.time.LocalDate;
@@ -26,7 +26,7 @@ public class BrandService {
      * 브랜드 등록
      * @param request
      */
-    public void register(RegBrand.Request request) {
+    public void register(BrandDto.Request request) {
         if (brandRepository.findByBrandName(request.getBrandName()).isPresent()) {
             throw new BrandException(ALREADY_EXIST_BRAND_NAME);
         }

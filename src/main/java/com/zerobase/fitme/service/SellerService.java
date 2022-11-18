@@ -6,7 +6,7 @@ import static com.zerobase.fitme.exception.type.SellerErrorCode.SELLER_NOT_FOUND
 
 import com.zerobase.fitme.entity.Seller;
 import com.zerobase.fitme.exception.SellerException;
-import com.zerobase.fitme.model.RegSeller;
+import com.zerobase.fitme.dto.SellerDto;
 import com.zerobase.fitme.model.UdtSeller;
 import com.zerobase.fitme.repository.SellerRepository;
 import java.time.LocalDateTime;
@@ -29,7 +29,7 @@ public class SellerService {
      * 판매자 등록
      * @param request
      */
-    public void register(RegSeller.Request request) {
+    public void register(SellerDto.Request request) {
         sellerRepository.save(Seller.builder()
                 .companyName(request.getCompanyName())
                 .sellerName(request.getSellerName())

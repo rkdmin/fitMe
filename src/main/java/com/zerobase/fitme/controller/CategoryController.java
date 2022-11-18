@@ -3,7 +3,7 @@ package com.zerobase.fitme.controller;
 import com.zerobase.fitme.entity.Category;
 import com.zerobase.fitme.exception.MemberException;
 import com.zerobase.fitme.exception.type.MemberErrorCode;
-import com.zerobase.fitme.model.RegCategory;
+import com.zerobase.fitme.dto.CategoryDto;
 import com.zerobase.fitme.model.UdtCategory;
 import com.zerobase.fitme.service.CategoryService;
 import java.util.List;
@@ -31,7 +31,7 @@ public class CategoryController {
 
     @PreAuthorize("hasRole('ADMIN')") // 관리자만 접속 가능
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody @Valid RegCategory.Request request, BindingResult bindingResult){
+    public ResponseEntity<String> register(@RequestBody @Valid CategoryDto.Request request, BindingResult bindingResult){
         // @valid 발생
         validation(bindingResult);
 

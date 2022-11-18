@@ -1,12 +1,10 @@
 package com.zerobase.fitme.controller;
 
-import static com.zerobase.fitme.exception.type.ErrorCode.INTERNAL_SERVER_ERROR;
 import static com.zerobase.fitme.exception.type.ModelErrorCode.INVALID_REQUEST;
 
 import com.zerobase.fitme.entity.Model;
 import com.zerobase.fitme.exception.ModelException;
-import com.zerobase.fitme.exception.type.ModelErrorCode;
-import com.zerobase.fitme.model.RegModel;
+import com.zerobase.fitme.dto.ModelDto;
 import com.zerobase.fitme.model.UdtModel;
 import com.zerobase.fitme.service.ModelService;
 import java.util.List;
@@ -35,7 +33,7 @@ public class ModelController {
 
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")// 관리자, 매니저만 접속가능
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody @Valid RegModel.Request request, BindingResult bindingResult){
+    public ResponseEntity<String> register(@RequestBody @Valid ModelDto.Request request, BindingResult bindingResult){
         // @valid 발생
         validation(bindingResult);
 

@@ -1,10 +1,10 @@
-package com.zerobase.fitme.model;
+package com.zerobase.fitme.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import lombok.Data;
 
-public class RegSeller {
+public class SellerDto {
     @Data
     public static class Request{
         @NotBlank(message = "회사 이름을 입력하세요")

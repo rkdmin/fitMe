@@ -4,7 +4,7 @@ import static com.zerobase.fitme.exception.type.SellerErrorCode.INVALID_REQUEST;
 
 import com.zerobase.fitme.entity.Seller;
 import com.zerobase.fitme.exception.SellerException;
-import com.zerobase.fitme.model.RegSeller;
+import com.zerobase.fitme.dto.SellerDto;
 import com.zerobase.fitme.model.UdtSeller;
 import com.zerobase.fitme.service.SellerService;
 import java.util.List;
@@ -33,7 +33,7 @@ public class SellerController {
 
     @PreAuthorize("hasRole('ADMIN')") // 관리자만 접속 가능
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody @Valid RegSeller.Request request, BindingResult bindingResult){
+    public ResponseEntity<String> register(@RequestBody @Valid SellerDto.Request request, BindingResult bindingResult){
         // @valid 발생
         validation(bindingResult);
 

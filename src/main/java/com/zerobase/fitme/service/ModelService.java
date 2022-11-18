@@ -5,7 +5,7 @@ import static com.zerobase.fitme.exception.type.ModelErrorCode.MODEL_NOT_FOUND;
 
 import com.zerobase.fitme.entity.Model;
 import com.zerobase.fitme.exception.ModelException;
-import com.zerobase.fitme.model.RegModel;
+import com.zerobase.fitme.dto.ModelDto;
 import com.zerobase.fitme.model.UdtModel;
 import com.zerobase.fitme.repository.ModelRepository;
 import java.time.LocalDateTime;
@@ -28,7 +28,7 @@ public class ModelService {
      * 모델 등록
      * @param request
      */
-    public void register(RegModel.Request request) {
+    public void register(ModelDto.Request request) {
         modelRepository.save(Model.builder()
                 .height(request.getHeight())
                 .topSize(request.getTopSize())

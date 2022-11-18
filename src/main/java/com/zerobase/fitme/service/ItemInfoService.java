@@ -4,8 +4,7 @@ import static com.zerobase.fitme.exception.type.ItemInfoErrorCode.INVALID_REQUES
 
 import com.zerobase.fitme.entity.ItemInfo;
 import com.zerobase.fitme.exception.ItemInfoException;
-import com.zerobase.fitme.exception.type.ItemInfoErrorCode;
-import com.zerobase.fitme.model.RegItemInfo;
+import com.zerobase.fitme.dto.ItemInfoDto;
 import com.zerobase.fitme.repository.ItemInfoRepository;
 import com.zerobase.fitme.type.ColorType;
 import com.zerobase.fitme.type.SizeType;
@@ -30,7 +29,7 @@ public class ItemInfoService {
      * 상품 상세정보 등록
      * @param request
      */
-    public ItemInfo register(RegItemInfo request) {
+    public ItemInfo register(ItemInfoDto request) {
         validationRegister(request);
 
         // 색상 불러오기
@@ -60,7 +59,7 @@ public class ItemInfoService {
                     .build());
     }
 
-    private static void validationRegister(RegItemInfo request) {
+    private static void validationRegister(ItemInfoDto request) {
         if(ObjectUtils.isEmpty(request)){
             throw new ItemInfoException(INVALID_REQUEST);
         }

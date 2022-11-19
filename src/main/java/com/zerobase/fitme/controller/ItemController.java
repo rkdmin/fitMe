@@ -17,6 +17,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,10 +41,16 @@ public class ItemController {
         return ResponseEntity.ok("상품 등록이 완료되었습니다.");
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN','MANAGER', 'USER')")// 관리자, 매니저만 접속가능
-    @GetMapping("")
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER', 'USER')")// 모두 접속가능
+    @GetMapping("/top20")
     public ResponseEntity<List<ItemDto.Response>> readTop20(){
         return ResponseEntity.ok(itemService.readTop20());
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER', 'USER')")// 모두 접속가능
+    @GetMapping("/brand/{brandName}")
+    public ResponseEntity<Page<ItemDto.Response>> readByBrandName(@PathVariable String brandName, final Pageable pageable){
+        return ResponseEntity.ok(itemService.readByBrandName(brandName, pageable));
     }
 
     private static void validation(BindingResult bindingResult) {

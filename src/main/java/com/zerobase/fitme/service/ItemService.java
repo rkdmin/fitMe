@@ -106,4 +106,14 @@ public class ItemService {
     public List<ItemDto.Response> readTop20( ) {
         return ItemDto.Response.toDtoList(itemRepository.findTop20ByOrderByViewDesc());
     }
+
+    /**
+     * 브랜드 이름으로 상품들을 불러옴
+     * @param brandName
+     * @return
+     */
+    public Page<ItemDto.Response> readByBrandName(String brandName, Pageable pageable) {
+        return itemRepository.findByBrand_BrandNameOrderByIdDesc(brandName, pageable)
+            .map(ItemDto.Response::toDto);
+    }
 }

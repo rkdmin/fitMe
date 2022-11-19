@@ -13,7 +13,5 @@ import org.springframework.stereotype.Repository;
 public interface ItemRepository extends JpaRepository<Item, Long> {
     boolean existsByItemName(String itemName);
     List<Item> findTop20ByOrderByViewDesc();
-
-    Page<Item> findAllByOrderByIdDesc(Pageable pageable);
-    Page<Item> findAllByOrderByViewDesc(Pageable pageable);
+    Page<Item> findByBrand_BrandNameOrderByIdDesc(String brandName, Pageable pageable);
 }

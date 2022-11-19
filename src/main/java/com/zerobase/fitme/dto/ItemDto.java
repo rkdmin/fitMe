@@ -58,15 +58,7 @@ public class ItemDto {
         private Long price;
         private Long saleRate;
         private Long salePrice;
-        private String content;
-        private Long view;
         private Long cnt;
-        private String brandName;
-        private SellerDto.Response sellerDto;
-        private ModelDto.Response modelDto;
-        private ItemInfoDto itemInfoDto;
-        private List<String> categoryNameList;
-        private LocalDateTime regDt;
 
         public static List<Response> toDtoList(List<Item> itemList) {
             List<Response> itemDtoList = new ArrayList<>();
@@ -85,17 +77,7 @@ public class ItemDto {
                 .price(item.getPrice())
                 .saleRate(item.getSaleRate())
                 .salePrice(item.getSalePrice())
-                .content(item.getContent())
-                .view(item.getView())
                 .cnt(item.getCnt())
-                .regDt(item.getRegDt())
-                .brandName(item.getBrand().getBrandName())
-                .sellerDto(SellerDto.Response.toDto(item.getSeller()))
-                .modelDto(ModelDto.Response.toDto(item.getModel()))
-                .itemInfoDto(ItemInfoDto.toDto(item.getItemInfo()))
-                .categoryNameList(item.getItemCategoryList().stream().map(
-                    x -> x.getCategory().getCategoryName()).collect(Collectors.toList())
-                )
                 .build();
         }
     }

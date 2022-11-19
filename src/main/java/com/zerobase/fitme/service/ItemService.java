@@ -5,6 +5,7 @@ import static com.zerobase.fitme.exception.type.ModelErrorCode.MODEL_NOT_FOUND;
 import static com.zerobase.fitme.exception.type.SellerErrorCode.SELLER_NOT_FOUND;
 
 import com.zerobase.fitme.dto.ItemDto;
+import com.zerobase.fitme.dto.ItemDto.Request;
 import com.zerobase.fitme.entity.Brand;
 import com.zerobase.fitme.entity.Category;
 import com.zerobase.fitme.entity.Item;
@@ -12,8 +13,10 @@ import com.zerobase.fitme.entity.ItemCategory;
 import com.zerobase.fitme.entity.Model;
 import com.zerobase.fitme.entity.Seller;
 import com.zerobase.fitme.exception.BrandException;
+import com.zerobase.fitme.exception.ItemException;
 import com.zerobase.fitme.exception.ModelException;
 import com.zerobase.fitme.exception.SellerException;
+import com.zerobase.fitme.exception.type.ItemErrorCode;
 import com.zerobase.fitme.repository.ItemRepository;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -42,6 +45,8 @@ public class ItemService {
      * @param request
      */
     public void register(ItemDto.Request request) {
+        validationRegister(request);
+
         // 브랜드, 판매자, 모델, 카테고리를 모두 가져옴
         Brand brand = brandService.readById(request.getBrandId())
             .orElseThrow(() -> new BrandException(BRAND_NOT_FOUND));
@@ -78,6 +83,12 @@ public class ItemService {
         itemRepository.save(item);
     }
 
+    private void validationRegister(Request request) {
+        if(itemRepository.existsByItemName(request.getItemName())){
+            throw new ItemException(ItemErrorCode.ALREADY_EXIST_ITEM_NAME);
+        }
+    }
+
     private Long calculateSalePrice(Long price, Long saleRate) {
         double priceDouble = (double)price;
         double saleRateDouble = (double)saleRate;
@@ -88,12 +99,11 @@ public class ItemService {
     }
 
     /**
-     * 조회수 top 100개의 상품을 불러옴
+     * 조회수 top 20개의 상품을 불러옴
      * @return
      */
     @Transactional
-    public List<ItemDto.Response> readTop100() {
-        List<Item> itemList = itemRepository.findTop100ByOrderByViewDesc();
-        return ItemDto.Response.toDtoList(itemList);
+    public List<ItemDto.Response> readTop20( ) {
+        return ItemDto.Response.toDtoList(itemRepository.findTop20ByOrderByViewDesc());
     }
 }

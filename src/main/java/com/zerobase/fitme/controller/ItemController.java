@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
@@ -41,8 +42,8 @@ public class ItemController {
 
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER', 'USER')")// 관리자, 매니저만 접속가능
     @GetMapping("")
-    public ResponseEntity<List<ItemDto.Response>> readTop100(){
-        return ResponseEntity.ok(itemService.readTop100());
+    public ResponseEntity<List<ItemDto.Response>> readTop20(){
+        return ResponseEntity.ok(itemService.readTop20());
     }
 
     private static void validation(BindingResult bindingResult) {

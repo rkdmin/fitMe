@@ -77,7 +77,7 @@ public class ItemDto {
             return itemDtoList;
         }
 
-        private static Response toDto(Item item) {
+        public static Response toDto(Item item) {
             return Response.builder()
                 .id(item.getId())
                 .itemName(item.getItemName())

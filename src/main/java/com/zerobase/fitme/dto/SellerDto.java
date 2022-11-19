@@ -1,7 +1,9 @@
 package com.zerobase.fitme.dto;
 
+import com.zerobase.fitme.entity.Seller;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import lombok.Builder;
 import lombok.Data;
 
 public class SellerDto {
@@ -25,5 +27,27 @@ public class SellerDto {
         @Email(message = "이메일 형식에 맞춰서 입력하세요")
         @NotBlank(message = "이메일을 입력하세요")
         private String email;
+    }
+
+    @Data
+    @Builder
+    public static class Response{
+        private String companyName;
+        private String sellerName;
+        private String address;
+        private String phone;
+        private String businessNumber;
+        private String email;
+
+        public static Response toDto(Seller seller) {
+            return Response.builder()
+                .companyName(seller.getCompanyName())
+                .sellerName(seller.getSellerName())
+                .address(seller.getAddress())
+                .phone(seller.getPhone())
+                .businessNumber(seller.getBusinessNumber())
+                .email(seller.getEmail())
+                .build();
+        }
     }
 }

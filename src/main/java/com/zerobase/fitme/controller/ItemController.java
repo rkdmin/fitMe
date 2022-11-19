@@ -2,13 +2,15 @@ package com.zerobase.fitme.controller;
 
 import static com.zerobase.fitme.exception.type.ItemErrorCode.INVALID_REQUEST;
 
-import com.zerobase.fitme.exception.ItemException;
 import com.zerobase.fitme.dto.ItemDto;
+import com.zerobase.fitme.entity.Item;
+import com.zerobase.fitme.exception.ItemException;
 import com.zerobase.fitme.service.ItemService;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
@@ -37,27 +39,11 @@ public class ItemController {
         return ResponseEntity.ok("상품 등록이 완료되었습니다.");
     }
 
-
-
-//    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")// 관리자, 매니저만 접속가능
-//    @GetMapping("")
-//    public List<Model> read(){
-//        return modelService.read();
-//    }
-//
-//    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")// 관리자, 매니저만 접속가능
-//    @PatchMapping("/edit/{id}")
-//    public Model patch(@RequestBody UdtModel.Request request, @PathVariable Long id){
-//
-//        return modelService.patch(request, id);
-//    }
-//
-//    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")// 관리자, 매니저만 접속가능
-//    @DeleteMapping("/delete/{id}")
-//    public String delete(@PathVariable Long id){
-//        modelService.delete(id);
-//        return "모델 삭제가 완료되었습니다.";
-//    }
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER', 'USER')")// 관리자, 매니저만 접속가능
+    @GetMapping("")
+    public ResponseEntity<List<ItemDto.Response>> readTop100(){
+        return ResponseEntity.ok(itemService.readTop100());
+    }
 
     private static void validation(BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

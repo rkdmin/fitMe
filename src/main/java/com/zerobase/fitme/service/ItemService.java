@@ -4,6 +4,7 @@ import static com.zerobase.fitme.exception.type.BrandErrorCode.BRAND_NOT_FOUND;
 import static com.zerobase.fitme.exception.type.ModelErrorCode.MODEL_NOT_FOUND;
 import static com.zerobase.fitme.exception.type.SellerErrorCode.SELLER_NOT_FOUND;
 
+import com.zerobase.fitme.dto.ItemDto;
 import com.zerobase.fitme.entity.Brand;
 import com.zerobase.fitme.entity.Category;
 import com.zerobase.fitme.entity.Item;
@@ -13,12 +14,13 @@ import com.zerobase.fitme.entity.Seller;
 import com.zerobase.fitme.exception.BrandException;
 import com.zerobase.fitme.exception.ModelException;
 import com.zerobase.fitme.exception.SellerException;
-import com.zerobase.fitme.dto.ItemDto;
 import com.zerobase.fitme.repository.ItemRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,15 +51,12 @@ public class ItemService {
             .orElseThrow(() -> new ModelException(MODEL_NOT_FOUND));
         List<Category> categoryList = categoryService.readByCategoryNameList(request.getCategoryNameList());
 
-        // 할인 계산
-        request.setSaleRate(calculateSalePrice(request.getPrice(), request.getSaleRate()));
-
         // 아이템엔티티생성
         Item item = Item.builder()
             .itemName(request.getItemName())
             .url(request.getUrl())
             .price(request.getPrice())
-            .salePrice(request.getSaleRate())
+            .salePrice(calculateSalePrice(request.getPrice(), request.getSaleRate()))
             .saleRate(request.getSaleRate())
             .content(request.getContent())
             .view(0)
@@ -80,10 +79,21 @@ public class ItemService {
     }
 
     private Long calculateSalePrice(Long price, Long saleRate) {
-        if(saleRate <= 0){
+        double priceDouble = (double)price;
+        double saleRateDouble = (double)saleRate;
+        if(saleRateDouble <= 0){
             return price;
         }
-        return price - (price * (saleRate / 100));
+        return (long)(priceDouble - (priceDouble * (saleRateDouble / 100)));
     }
 
+    /**
+     * 조회수 top 100개의 상품을 불러옴
+     * @return
+     */
+    @Transactional
+    public List<ItemDto.Response> readTop100() {
+        List<Item> itemList = itemRepository.findTop100ByOrderByViewDesc();
+        return ItemDto.Response.toDtoList(itemList);
+    }
 }

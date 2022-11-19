@@ -1,6 +1,7 @@
 package com.zerobase.fitme.service;
 
 import static com.zerobase.fitme.exception.type.BrandErrorCode.BRAND_NOT_FOUND;
+import static com.zerobase.fitme.exception.type.ItemErrorCode.*;
 import static com.zerobase.fitme.exception.type.ModelErrorCode.MODEL_NOT_FOUND;
 import static com.zerobase.fitme.exception.type.SellerErrorCode.SELLER_NOT_FOUND;
 
@@ -85,7 +86,7 @@ public class ItemService {
 
     private void validationRegister(Request request) {
         if(itemRepository.existsByItemName(request.getItemName())){
-            throw new ItemException(ItemErrorCode.ALREADY_EXIST_ITEM_NAME);
+            throw new ItemException(ALREADY_EXIST_ITEM_NAME);
         }
     }
 
@@ -124,5 +125,14 @@ public class ItemService {
         // ItemCategory -> ItemDto.Response로 변환
         return itemCategoryService.readByCategoryName(categoryName, pageable)
             .map(itemCategory -> ItemDto.Response.toDto(itemCategory.getItem()));
+    }
+
+    /**
+     * 상품 상세정보를 불러옴
+     */
+    public ItemDto.ResponseDetail readDetail(Long itemId) {
+        return ItemDto.ResponseDetail.toDto(itemRepository.findById(itemId).orElseThrow(
+            () -> new ItemException(ITEM_NOT_FOUND)
+        ));
     }
 }

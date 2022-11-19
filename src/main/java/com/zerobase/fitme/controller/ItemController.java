@@ -60,6 +60,12 @@ public class ItemController {
         return ResponseEntity.ok(itemService.readByCategoryName(categoryName, pageable));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER', 'USER')")// 모두 접속가능
+    @GetMapping("/detail/{itemId}")
+    public ResponseEntity<ItemDto.ResponseDetail> readDetail(@PathVariable Long itemId){
+        return ResponseEntity.ok(itemService.readDetail(itemId));
+    }
+
 
     private static void validation(BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

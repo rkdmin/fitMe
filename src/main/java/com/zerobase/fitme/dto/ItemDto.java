@@ -51,7 +51,7 @@ public class ItemDto {
 
     @Data
     @Builder
-    public static class Response{
+    public static class Response {
         private Long id;
         private String itemName;
         private String url;
@@ -68,7 +68,6 @@ public class ItemDto {
 
             return itemDtoList;
         }
-
         public static Response toDto(Item item) {
             return Response.builder()
                 .id(item.getId())
@@ -78,6 +77,51 @@ public class ItemDto {
                 .saleRate(item.getSaleRate())
                 .salePrice(item.getSalePrice())
                 .cnt(item.getCnt())
+                .build();
+        }
+    }
+
+    @Data
+    @Builder
+    public static class ResponseDetail {
+        private Long id;
+        private String itemName;
+        private String url;
+        private Long price;
+        private Long saleRate;
+        private Long salePrice;
+        private Long cnt;
+
+        // 추가
+        private String content;
+        private long view;
+        private LocalDateTime regDt;
+        private ItemInfoDto itemInfoDto;
+        private BrandDto.Response brandDto;
+        private SellerDto.Response sellerDto;
+        private ModelDto.Response modelDto;
+        private List<String> categoryNameList;
+
+        public static ResponseDetail toDto(Item item) {
+            return ResponseDetail.builder()
+                .id(item.getId())
+                .itemName(item.getItemName())
+                .url(item.getUrl())
+                .price(item.getPrice())
+                .saleRate(item.getSaleRate())
+                .salePrice(item.getSalePrice())
+                .cnt(item.getCnt())
+                .content(item.getContent())
+                .view(item.getView())
+                .regDt(item.getRegDt())
+                .itemInfoDto(ItemInfoDto.toDto(item.getItemInfo()))
+                .brandDto(BrandDto.Response.toDto(item.getBrand()))
+                .sellerDto(SellerDto.Response.toDto(item.getSeller()))
+                .modelDto(ModelDto.Response.toDto(item.getModel()))
+                // itemCategoryList -> categoryNameList
+                .categoryNameList(item.getItemCategoryList().stream()
+                    .map(x -> x.getCategory().getCategoryName())
+                    .collect(Collectors.toList()))
                 .build();
         }
     }

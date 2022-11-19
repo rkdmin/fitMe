@@ -1,5 +1,6 @@
 package com.zerobase.fitme.service;
 
+import com.zerobase.fitme.dto.ItemDto;
 import com.zerobase.fitme.entity.Category;
 import com.zerobase.fitme.entity.Item;
 import com.zerobase.fitme.entity.ItemCategory;
@@ -8,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,5 +34,9 @@ public class ItemCategoryService {
         }
 
         return itemCategoryList;
+    }
+
+    public Page<ItemCategory> readByCategoryName(String categoryName, Pageable pageable) {
+        return itemCategoryRepository.findByCategory_CategoryNameOrderByItemIdDesc(categoryName, pageable);
     }
 }

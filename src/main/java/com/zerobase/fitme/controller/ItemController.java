@@ -5,6 +5,7 @@ import static com.zerobase.fitme.exception.type.ItemErrorCode.INVALID_REQUEST;
 import com.zerobase.fitme.dto.ItemDto;
 import com.zerobase.fitme.entity.Item;
 import com.zerobase.fitme.exception.ItemException;
+import com.zerobase.fitme.service.ItemCategoryService;
 import com.zerobase.fitme.service.ItemService;
 import java.util.List;
 import javax.validation.Valid;
@@ -52,6 +53,13 @@ public class ItemController {
     public ResponseEntity<Page<ItemDto.Response>> readByBrandName(@PathVariable String brandName, final Pageable pageable){
         return ResponseEntity.ok(itemService.readByBrandName(brandName, pageable));
     }
+
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER', 'USER')")// 모두 접속가능
+    @GetMapping("/category/{categoryName}")
+    public ResponseEntity<Page<ItemDto.Response>> readByCategoryName(@PathVariable String categoryName, final Pageable pageable){
+        return ResponseEntity.ok(itemService.readByCategoryName(categoryName, pageable));
+    }
+
 
     private static void validation(BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

@@ -116,4 +116,13 @@ public class ItemService {
         return itemRepository.findByBrand_BrandNameOrderByIdDesc(brandName, pageable)
             .map(ItemDto.Response::toDto);
     }
+
+    /**
+     * 카테고리 이름으로 상품들을 불러옴
+     */
+    public Page<ItemDto.Response> readByCategoryName(String categoryName, Pageable pageable) {
+        // ItemCategory -> ItemDto.Response로 변환
+        return itemCategoryService.readByCategoryName(categoryName, pageable)
+            .map(itemCategory -> ItemDto.Response.toDto(itemCategory.getItem()));
+    }
 }

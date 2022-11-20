@@ -2,14 +2,12 @@ package com.zerobase.fitme.entity;
 
 import static com.zerobase.fitme.type.EmailStatus.*;
 
-import com.zerobase.fitme.model.Auth.SignUp;
+import com.zerobase.fitme.dto.MemberDto.SignUp;
 import com.zerobase.fitme.type.EmailStatus;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
-import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -23,7 +21,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

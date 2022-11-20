@@ -1,8 +1,6 @@
 package com.zerobase.fitme.dto;
 
-import com.zerobase.fitme.dto.ModelDto.Response;
 import com.zerobase.fitme.entity.Brand;
-import com.zerobase.fitme.entity.Model;
 import javax.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Data;

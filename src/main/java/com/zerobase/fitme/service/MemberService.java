@@ -13,8 +13,8 @@ import com.zerobase.fitme.entity.Member;
 import com.zerobase.fitme.entity.MemberDetail;
 import com.zerobase.fitme.exception.MemberException;
 import com.zerobase.fitme.mail.MailComponents;
-import com.zerobase.fitme.model.Auth;
-import com.zerobase.fitme.model.Auth.SignUp;
+import com.zerobase.fitme.dto.MemberDto;
+import com.zerobase.fitme.dto.MemberDto.SignUp;
 import com.zerobase.fitme.repository.MemberDetailRepository;
 import com.zerobase.fitme.repository.MemberRepository;
 import com.zerobase.fitme.type.EmailStatus;
@@ -55,7 +55,7 @@ public class MemberService implements UserDetailsService {
      * @param request
      * @return
      */
-    public Member register(Auth.SignUp request){
+    public Member register(MemberDto.SignUp request){
         // 유효성 검사
         validationRegister(request);
         Optional<Member> optionalMember = memberRepository.findByUsername(request.getUsername());
@@ -86,7 +86,7 @@ public class MemberService implements UserDetailsService {
      * @param member
      * @return
      */
-    public Member login(Auth.SignIn member){
+    public Member login(MemberDto.SignIn member){
         Optional<Member> optionalMember = memberRepository.findByUsername(member.getUsername());
         if(!optionalMember.isPresent()){
             throw new MemberException(LOGIN_FAIL);

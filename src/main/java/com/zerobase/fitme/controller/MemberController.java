@@ -4,7 +4,7 @@ import static com.zerobase.fitme.exception.type.MemberErrorCode.INVALID_REQUEST;
 
 import com.zerobase.fitme.entity.Member;
 import com.zerobase.fitme.exception.MemberException;
-import com.zerobase.fitme.model.Auth;
+import com.zerobase.fitme.dto.MemberDto;
 import com.zerobase.fitme.security.TokenProvider;
 import com.zerobase.fitme.service.MemberService;
 import java.util.List;
@@ -30,7 +30,7 @@ public class MemberController {
     private final TokenProvider tokenProvider;
 
     @PostMapping("/signup")
-    public ResponseEntity<String> signup(@RequestBody @Valid Auth.SignUp request, BindingResult bindingResult){
+    public ResponseEntity<String> signup(@RequestBody @Valid MemberDto.SignUp request, BindingResult bindingResult){
         // @valid 발생
         validation(bindingResult);
 
@@ -40,7 +40,7 @@ public class MemberController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<String> signin(@RequestBody @Valid Auth.SignIn request, BindingResult bindingResult){
+    public ResponseEntity<String> signin(@RequestBody @Valid MemberDto.SignIn request, BindingResult bindingResult){
         // @valid 발생
         validation(bindingResult);
 

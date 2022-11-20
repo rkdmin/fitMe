@@ -23,14 +23,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/admin/category")
+@RequestMapping("/category")
 @RequiredArgsConstructor
 public class CategoryController {
 
     private final CategoryService categoryService;
 
     @PreAuthorize("hasRole('ADMIN')") // 관리자만 접속 가능
-    @PostMapping("/register")
+    @PostMapping("/admin")
     public ResponseEntity<String> register(@RequestBody @Valid CategoryDto.Request request, BindingResult bindingResult){
         // @valid 발생
         validation(bindingResult);
@@ -41,7 +41,7 @@ public class CategoryController {
     }
 
     @PreAuthorize("hasRole('ADMIN')") // 관리자만 접속 가능
-    @PatchMapping("/edit")
+    @PatchMapping("/admin")
     public ResponseEntity<String> patch(@RequestBody UdtCategory.Request request){
 
         categoryService.patch(request);
@@ -49,9 +49,9 @@ public class CategoryController {
         return ResponseEntity.ok("카테고리 수정이 완료되었습니다.");
     }
 
-    @PreAuthorize("hasRole('ADMIN')") // 관리자만 접속 가능
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER','USER')")// 모두 접속가능
     @GetMapping("")
-    public ResponseEntity<List<Category>> read(){
+    public ResponseEntity<List<CategoryDto.Response>> read(){
         return ResponseEntity.ok(categoryService.read());
     }
 

@@ -2,6 +2,7 @@ package com.zerobase.fitme.exception;
 
 import static com.zerobase.fitme.exception.type.ErrorCode.INTERNAL_SERVER_ERROR;
 
+import com.zerobase.fitme.exception.type.OrderErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -73,6 +74,14 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(CartException.class)
     public ResponseEntity<ErrorResponse> handelCartException(CartException e){
+        log.error("{} is occurred", e.getErrorMassage());
+
+        return new ResponseEntity(new ErrorResponse(e.getErrorCode().toString(), e.getErrorMassage()),
+            HttpStatus.resolve(HttpStatus.BAD_REQUEST.value()));
+    }
+
+    @ExceptionHandler(OrderException.class)
+    public ResponseEntity<ErrorResponse> handelOrderException(OrderException e){
         log.error("{} is occurred", e.getErrorMassage());
 
         return new ResponseEntity(new ErrorResponse(e.getErrorCode().toString(), e.getErrorMassage()),

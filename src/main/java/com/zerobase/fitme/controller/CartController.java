@@ -17,6 +17,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,6 +47,13 @@ public class CartController {
     @GetMapping
     public ResponseEntity<List<CartDto.Response>> readCartList(Principal principal){
         return ResponseEntity.ok(cartService.readCategoryList(principal.getName()));
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER','USER')")// 모두 접속가능
+    @PatchMapping("/{cartId}")
+    public ResponseEntity<CartDto.Response> patchCart(@PathVariable Long cartId,
+                                                        @RequestBody CartDto.RequestPatch request){
+        return ResponseEntity.ok(cartService.patch(cartId, request));
     }
 
     private static void validation(BindingResult bindingResult) {

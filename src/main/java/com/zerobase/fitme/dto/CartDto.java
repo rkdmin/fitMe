@@ -16,6 +16,12 @@ public class CartDto {
     }
 
     @Data
+    public static class RequestPatch{
+        private String size;
+        private String color;
+    }
+
+    @Data
     @Builder
     public static class Response {
         private Long id;

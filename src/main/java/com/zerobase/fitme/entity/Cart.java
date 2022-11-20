@@ -1,5 +1,7 @@
 package com.zerobase.fitme.entity;
 
+import com.zerobase.fitme.dto.CartDto;
+import com.zerobase.fitme.model.UdtCategory.Request;
 import com.zerobase.fitme.type.ColorType;
 import com.zerobase.fitme.type.SizeType;
 import javax.persistence.Entity;
@@ -13,6 +15,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.util.StringUtils;
 
 @Getter
 @Setter
@@ -35,4 +38,13 @@ public class Cart {
 
     private ColorType color;
     private SizeType size;
+
+    public void patch(CartDto.RequestPatch request) {
+        if(StringUtils.hasText(request.getColor())){
+            this.color = ColorType.getType(request.getColor());
+        }
+        if(StringUtils.hasText(request.getSize())){
+            this.size = SizeType.getType(request.getSize());
+        }
+    }
 }

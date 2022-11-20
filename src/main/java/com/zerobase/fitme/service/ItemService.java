@@ -131,8 +131,13 @@ public class ItemService {
      * 상품 상세정보를 불러옴
      */
     public ItemDto.ResponseDetail readDetail(Long itemId) {
-        return ItemDto.ResponseDetail.toDto(itemRepository.findById(itemId).orElseThrow(
+
+        Item item = itemRepository.findById(itemId).orElseThrow(
             () -> new ItemException(ITEM_NOT_FOUND)
-        ));
+        );
+        // 조회수 1증가
+        item.setView(item.getView() + 1);
+
+        return ItemDto.ResponseDetail.toDto(itemRepository.save(item));
     }
 }

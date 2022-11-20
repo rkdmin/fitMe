@@ -101,4 +101,16 @@ public class CartService {
         }
     }
 
+    /**
+     * 장바구니 삭제
+     * @param cartId
+     * @return
+     */
+    public CartDto.Response delete(Long cartId) {
+        Cart cart = cartRepository.findById(cartId).orElseThrow(
+            () -> new CartException(CART_NOT_FOUND)
+        );
+        cartRepository.delete(cart);
+        return CartDto.Response.toDto(cart);
+    }
 }

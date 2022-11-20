@@ -90,14 +90,6 @@ public class CartService {
         return Response.toDto(cartRepository.save(cart));
     }
 
-    private static void validationSizeOrColor(ColorType colorType, SizeType sizeType, Item item) {
-        // 상품에 색상 또는 사이즈가 있는지 검사
-        if(!item.getItemInfo().getColorList().contains(colorType) ||
-            !item.getItemInfo().getSizeList().contains(sizeType)){
-            throw new CartException(EMPTY_COLOR_OR_SIZE);
-        }
-    }
-
     /**
      * 장바구니 삭제
      * @param cartId
@@ -109,5 +101,22 @@ public class CartService {
         );
         cartRepository.delete(cart);
         return CartDto.Response.toDto(cart);
+    }
+
+    /**
+     * memberId와 itemId로 장바구니에 담겨 있는지 확인
+     */
+    public List<Long> findByMemberAndItem(Long memberId, Long itemId) {
+        return cartRepository.findByMember_IdAndItem_Id(memberId, itemId).stream()
+            .map(x -> x.getId())
+            .collect(Collectors.toList());
+    }
+
+    private static void validationSizeOrColor(ColorType colorType, SizeType sizeType, Item item) {
+        // 상품에 색상 또는 사이즈가 있는지 검사
+        if(!item.getItemInfo().getColorList().contains(colorType) ||
+            !item.getItemInfo().getSizeList().contains(sizeType)){
+            throw new CartException(EMPTY_COLOR_OR_SIZE);
+        }
     }
 }

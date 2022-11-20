@@ -9,7 +9,7 @@ Content-Type: application/json
   "price" : 1000,
   "saleRate" : 10,
   "content" : "내용1",
-  "cnt" : 10,
+  "cnt" : 3,
   "brandId" : 2,
   "sellerId" : 1,
   "modelId" : 1,

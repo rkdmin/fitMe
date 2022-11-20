@@ -6,17 +6,14 @@ import static com.zerobase.fitme.exception.type.CartErrorCode.INVALID_REQUEST;
 
 import com.zerobase.fitme.dto.CartDto;
 import com.zerobase.fitme.dto.CartDto.Response;
-import com.zerobase.fitme.dto.ItemDto;
 import com.zerobase.fitme.entity.Cart;
 import com.zerobase.fitme.entity.Item;
 import com.zerobase.fitme.entity.Member;
 import com.zerobase.fitme.exception.CartException;
 import com.zerobase.fitme.dto.CartDto.Request;
-import com.zerobase.fitme.exception.type.CartErrorCode;
 import com.zerobase.fitme.repository.CartRepository;
 import com.zerobase.fitme.type.ColorType;
 import com.zerobase.fitme.type.SizeType;
-import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -66,7 +63,7 @@ public class CartService {
      * @param username
      * @return
      */
-    public List<CartDto.Response> readCategoryList(String username) {
+    public List<CartDto.Response> readCartList(String username) {
         // Cart -> ItemDto.Response
         return cartRepository.findByMember_Username(username).stream()
             .map(x -> CartDto.Response.toDto(x))

@@ -2,11 +2,9 @@ package com.zerobase.fitme.controller;
 
 import static com.zerobase.fitme.exception.type.CartErrorCode.INVALID_REQUEST;
 
-import com.zerobase.fitme.dto.ItemDto;
 import com.zerobase.fitme.exception.CartException;
 import com.zerobase.fitme.dto.CartDto;
 import com.zerobase.fitme.service.CartService;
-import com.zerobase.fitme.service.ItemService;
 import java.security.Principal;
 import java.util.List;
 import javax.validation.Valid;
@@ -47,7 +45,7 @@ public class CartController {
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER','USER')")// 모두 접속가능
     @GetMapping
     public ResponseEntity<List<CartDto.Response>> readCartList(Principal principal){
-        return ResponseEntity.ok(cartService.readCategoryList(principal.getName()));
+        return ResponseEntity.ok(cartService.readCartList(principal.getName()));
     }
 
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER','USER')")// 모두 접속가능

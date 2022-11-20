@@ -6,6 +6,7 @@ import com.zerobase.fitme.dto.ItemDto;
 import com.zerobase.fitme.exception.CartException;
 import com.zerobase.fitme.dto.CartDto;
 import com.zerobase.fitme.service.CartService;
+import com.zerobase.fitme.service.ItemService;
 import java.security.Principal;
 import java.util.List;
 import javax.validation.Valid;
@@ -45,11 +46,6 @@ public class CartController {
     @GetMapping
     public ResponseEntity<List<CartDto.Response>> readCartList(Principal principal){
         return ResponseEntity.ok(cartService.readCategoryList(principal.getName()));
-    }
-
-    @GetMapping("/test")
-    public ResponseEntity<String> test(){
-        return ResponseEntity.ok("권한 테스트");
     }
 
     private static void validation(BindingResult bindingResult) {

@@ -14,11 +14,17 @@ POST http://localhost:8080/member/signin
 Content-Type: application/json
 
 {
-  "username": "admin122",
+  "username": "admin12",
   "password": "abc1234!"
 }
 
 ### 이메일 인증
 GET http://localhost:8080/member/email/20f0aacf-5b98-4cdd-a299-e78ecb041e93
 Accept: application/json
+
+### 상품 상세정보 조회
+POST http://localhost:8080/member/cart/1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjEyIiwicm9sZXMiOiJST0xFX01BTkFHRVIiLCJpYXQiOjE2Njg5MTczMzcsImV4cCI6MTY2ODkyMDkzN30.vT4WkLQ3iy2xlqDAwppzY_xnzfg8PSH0cIVpC6cfrnanRu-8xSs7d2EuH-nY_R3itdNmMdpdlS6M3PvjTbkvcA
+Accept: application/json
+
 

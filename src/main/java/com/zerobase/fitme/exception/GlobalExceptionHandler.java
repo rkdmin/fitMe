@@ -71,6 +71,14 @@ public class GlobalExceptionHandler {
             HttpStatus.resolve(HttpStatus.BAD_REQUEST.value()));
     }
 
+    @ExceptionHandler(CartException.class)
+    public ResponseEntity<ErrorResponse> handelCartException(CartException e){
+        log.error("{} is occurred", e.getErrorMassage());
+
+        return new ResponseEntity(new ErrorResponse(e.getErrorCode().toString(), e.getErrorMassage()),
+            HttpStatus.resolve(HttpStatus.BAD_REQUEST.value()));
+    }
+
 //     다 거르고 마지막 예외
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handelException(Exception e){

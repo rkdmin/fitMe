@@ -1,19 +1,20 @@
 package com.zerobase.fitme.controller;
 
-import static com.zerobase.fitme.exception.type.ErrorCode.*;
 import static com.zerobase.fitme.exception.type.MemberErrorCode.INVALID_REQUEST;
 
 import com.zerobase.fitme.entity.Member;
 import com.zerobase.fitme.exception.MemberException;
-import com.zerobase.fitme.exception.type.MemberErrorCode;
 import com.zerobase.fitme.model.Auth;
+import com.zerobase.fitme.model.RegCart;
 import com.zerobase.fitme.security.TokenProvider;
 import com.zerobase.fitme.service.MemberService;
+import java.security.Principal;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -59,11 +61,6 @@ public class MemberController {
         memberService.emailAuth(emailKey);
 
         return ResponseEntity.ok("이메일 인증이 완료되었습니다.");
-    }
-
-    @GetMapping("/test")
-    public ResponseEntity<String> test(){
-        return ResponseEntity.ok("권한 테스트");
     }
 
     private static void validation(BindingResult bindingResult) {

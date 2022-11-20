@@ -140,4 +140,15 @@ public class ItemService {
 
         return ItemDto.ResponseDetail.toDto(itemRepository.save(item));
     }
+
+    /**
+     * itemId로 Item 반환
+     * @param itemId
+     * @return
+     */
+    public Item findByItemId(Long itemId) {
+        return itemRepository.findById(itemId).orElseThrow(
+            () -> new ItemException(ITEM_NOT_FOUND)
+        );
+    }
 }

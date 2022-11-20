@@ -50,6 +50,11 @@ public class MemberService implements UserDetailsService {
             .orElseThrow(() -> new MemberException(USER_NOT_FOUND));
     }
 
+    /**
+     * 회원가입
+     * @param request
+     * @return
+     */
     public Member register(Auth.SignUp request){
         // 유효성 검사
         validationRegister(request);
@@ -76,6 +81,11 @@ public class MemberService implements UserDetailsService {
         }
     }
 
+    /**
+     * 로그인
+     * @param member
+     * @return
+     */
     public Member login(Auth.SignIn member){
         Optional<Member> optionalMember = memberRepository.findByUsername(member.getUsername());
         if(!optionalMember.isPresent()){
@@ -94,6 +104,11 @@ public class MemberService implements UserDetailsService {
         return optionalMember.get();
     }
 
+    /**
+     * 메일전송
+     * @param email
+     * @param emailKey
+     */
     private void sendEmail(String email, String emailKey) {
         String subject = "fitMe 가입을 축하드립니다. ";
         String text = "<p>fitMe 가입을 축하드립니다.</p>" +
@@ -102,6 +117,10 @@ public class MemberService implements UserDetailsService {
         mailComponents.sendMail(email, subject, text);
     }
 
+    /**
+     * 메일 인증
+     * @param emailKey
+     */
     public void emailAuth(String emailKey) {
         Optional<Member> optionalMember = memberRepository.findByEmailKey(emailKey);
 
@@ -120,5 +139,16 @@ public class MemberService implements UserDetailsService {
         // 업데이트
         memberRepository.save(member);
         member.setMemberDetail(memberDetailRepository.save(memberDetail));
+    }
+
+    /**
+     * username으로 Member반환
+     * @param username
+     * @return
+     */
+    public Member findByUserName(String username) {
+        return memberRepository.findByUsername(username).orElseThrow(
+            () -> new MemberException(USER_NOT_FOUND)
+        );
     }
 }

@@ -2,9 +2,9 @@ package com.zerobase.fitme.controller;
 
 import static com.zerobase.fitme.exception.type.CartErrorCode.INVALID_REQUEST;
 
+import com.zerobase.fitme.dto.ItemDto;
 import com.zerobase.fitme.exception.CartException;
-import com.zerobase.fitme.exception.type.CartErrorCode;
-import com.zerobase.fitme.model.RegCart;
+import com.zerobase.fitme.dto.CartDto;
 import com.zerobase.fitme.service.CartService;
 import java.security.Principal;
 import java.util.List;
@@ -32,7 +32,7 @@ public class CartController {
     @PreAuthorize("hasAnyRole('ADMIN','MANAGER','USER')")// 모두 접속가능
     @PostMapping("/{itemId}")
     public ResponseEntity<String> register(Principal principal, @PathVariable Long itemId,
-        @RequestBody @Valid RegCart.Request request, BindingResult bindingResult){
+        @RequestBody @Valid CartDto.Request request, BindingResult bindingResult){
         // @valid 발생
         validation(bindingResult);
 
@@ -41,6 +41,11 @@ public class CartController {
         return ResponseEntity.ok("장바구니 등록이 완료되었습니다.");
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER','USER')")// 모두 접속가능
+    @GetMapping
+    public ResponseEntity<List<CartDto.Response>> readCartList(Principal principal){
+        return ResponseEntity.ok(cartService.readCategoryList(principal.getName()));
+    }
 
     @GetMapping("/test")
     public ResponseEntity<String> test(){

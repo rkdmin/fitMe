@@ -3,15 +3,18 @@ package com.zerobase.fitme.service;
 import static com.zerobase.fitme.exception.type.CartErrorCode.EMPTY_COLOR_OR_SIZE;
 import static com.zerobase.fitme.exception.type.CartErrorCode.INVALID_REQUEST;
 
+import com.zerobase.fitme.dto.CartDto;
+import com.zerobase.fitme.dto.ItemDto;
 import com.zerobase.fitme.entity.Cart;
 import com.zerobase.fitme.entity.Item;
 import com.zerobase.fitme.entity.Member;
 import com.zerobase.fitme.exception.CartException;
-import com.zerobase.fitme.exception.type.CartErrorCode;
-import com.zerobase.fitme.model.RegCart.Request;
+import com.zerobase.fitme.dto.CartDto.Request;
 import com.zerobase.fitme.repository.CartRepository;
 import com.zerobase.fitme.type.ColorType;
 import com.zerobase.fitme.type.SizeType;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -53,6 +56,15 @@ public class CartService {
         cartRepository.save(Cart.builder()
                 .member(member)
                 .item(item)
+                .color(colorType)
+                .size(sizeType)
                 .build());
+    }
+
+    public List<CartDto.Response> readCategoryList(String username) {
+        // Cart -> ItemDto.Response
+        return cartRepository.findByMember_Username(username).stream()
+            .map(x -> CartDto.Response.toDto(x))
+            .collect(Collectors.toList());
     }
 }

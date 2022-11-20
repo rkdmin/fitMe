@@ -1,5 +1,6 @@
 package com.zerobase.fitme.dto;
 
+import com.zerobase.fitme.entity.Cart;
 import com.zerobase.fitme.entity.Item;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -125,5 +126,4 @@ public class ItemDto {
                 .build();
         }
     }
-
 }

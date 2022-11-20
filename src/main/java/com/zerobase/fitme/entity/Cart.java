@@ -1,5 +1,7 @@
 package com.zerobase.fitme.entity;
 
+import com.zerobase.fitme.type.ColorType;
+import com.zerobase.fitme.type.SizeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,4 +32,7 @@ public class Cart {
     @ManyToOne
     @JoinColumn(name = "item_id")
     private Item item;
+
+    private ColorType color;
+    private SizeType size;
 }

@@ -1,10 +1,12 @@
 package com.zerobase.fitme.service;
 
 import static com.zerobase.fitme.exception.type.OrderErrorCode.ALREADY_START_ITEM;
+import static com.zerobase.fitme.exception.type.OrderErrorCode.INVALID_REQUEST;
 import static com.zerobase.fitme.exception.type.OrderErrorCode.ORDER_NOT_FOUND;
 import static com.zerobase.fitme.exception.type.OrderErrorCode.OUT_OF_STOCK;
 
 import com.zerobase.fitme.dto.OrderDto;
+import com.zerobase.fitme.dto.OrderDto.RequestPatch;
 import com.zerobase.fitme.dto.OrderDto.Response;
 import com.zerobase.fitme.dto.OrderDto.ResponseManager;
 import com.zerobase.fitme.entity.Item;
@@ -108,5 +110,23 @@ public class OrderService {
             .map(ResponseManager::toDto);
     }
 
+    /**
+     * 주문 상태 변경
+     * @param request
+     * @param orderId
+     * @return
+     */
+    public ResponseManager patchOrderStatus(RequestPatch request, Long orderId) {
+        OrderStatus orderStatus = OrderStatus.getType(request.getOrderStatus());
+        if(orderStatus == null){
+            throw new OrderException(INVALID_REQUEST);
+        }
+        Order order = orderRepository.findById(orderId).orElseThrow(
+            () -> new OrderException(ORDER_NOT_FOUND)
+        );
 
+        // 주문 상태 갱신
+        order.setOrderStatus(orderStatus);
+        return ResponseManager.toDto(orderRepository.save(order));
+    }
 }

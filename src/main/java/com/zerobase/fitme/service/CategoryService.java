@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -61,6 +62,7 @@ public class CategoryService{
      * 카테고리 조회
      * @return
      */
+    @Cacheable("categoryList")
     public List<CategoryDto.Response> read() {
         return categoryRepository.findAll().stream()
             .map(x -> CategoryDto.Response.toDto(x))

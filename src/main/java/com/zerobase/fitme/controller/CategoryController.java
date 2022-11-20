@@ -1,9 +1,8 @@
 package com.zerobase.fitme.controller;
 
-import com.zerobase.fitme.entity.Category;
+import com.zerobase.fitme.dto.CategoryDto;
 import com.zerobase.fitme.exception.MemberException;
 import com.zerobase.fitme.exception.type.MemberErrorCode;
-import com.zerobase.fitme.dto.CategoryDto;
 import com.zerobase.fitme.model.UdtCategory;
 import com.zerobase.fitme.service.CategoryService;
 import java.util.List;

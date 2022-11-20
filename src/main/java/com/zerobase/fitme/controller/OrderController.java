@@ -4,6 +4,7 @@ import static com.zerobase.fitme.exception.type.OrderErrorCode.*;
 
 import com.zerobase.fitme.dto.CartDto;
 import com.zerobase.fitme.dto.OrderDto;
+import com.zerobase.fitme.entity.Order;
 import com.zerobase.fitme.exception.OrderException;
 import com.zerobase.fitme.exception.type.OrderErrorCode;
 import com.zerobase.fitme.service.CartService;
@@ -46,6 +47,12 @@ public class OrderController {
     @GetMapping
     public ResponseEntity<List<OrderDto.Response>> readCartList(Principal principal){
         return ResponseEntity.ok(orderService.readOrderList(principal.getName()));
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER','USER')")// 모두 접속가능
+    @DeleteMapping("/{orderId}")
+    public ResponseEntity<OrderDto.Response> delete(@PathVariable Long orderId){
+        return ResponseEntity.ok(orderService.delete(orderId));
     }
 
     private static void validation(BindingResult bindingResult) {

@@ -151,4 +151,12 @@ public class ItemService {
             () -> new ItemException(ITEM_NOT_FOUND)
         );
     }
+
+    /**
+     * 아이템 업데이트
+     * @param item
+     */
+    public void update(Item item) {
+        itemRepository.save(item);
+    }
 }

@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +33,7 @@ public class CategoryService{
      * 카테고리 등록
      * @param request
      */
+    @CacheEvict(value="categoryList", allEntries=true)
     public void register(Request request) {
         if(categoryRepository.findByCategoryName(request.getCategoryName()).isPresent()){
             throw new CategoryException(ALREADY_EXIST_CATEGORY_NAME);
@@ -46,6 +48,7 @@ public class CategoryService{
      * 카테고리 수정
      * @param request
      */
+    @CacheEvict(value="categoryList", allEntries=true)
     public void patch(UdtCategory.Request request) {
         validationPatch(request);
 

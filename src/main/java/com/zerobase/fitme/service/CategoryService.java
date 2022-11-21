@@ -4,6 +4,7 @@ import static com.zerobase.fitme.exception.type.CategoryErrorCode.ALREADY_EXIST_
 import static com.zerobase.fitme.exception.type.CategoryErrorCode.CATEGORY_NOT_FOUND;
 import static com.zerobase.fitme.exception.type.CategoryErrorCode.INVALID_REQUEST;
 
+import com.zerobase.fitme.dto.CategoryDto;
 import com.zerobase.fitme.entity.Category;
 import com.zerobase.fitme.exception.CategoryException;
 import com.zerobase.fitme.dto.CategoryDto.Request;
@@ -11,8 +12,11 @@ import com.zerobase.fitme.model.UdtCategory;
 import com.zerobase.fitme.repository.CategoryRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -29,6 +33,7 @@ public class CategoryService{
      * 카테고리 등록
      * @param request
      */
+    @CacheEvict(value="categoryList", allEntries=true)
     public void register(Request request) {
         if(categoryRepository.findByCategoryName(request.getCategoryName()).isPresent()){
             throw new CategoryException(ALREADY_EXIST_CATEGORY_NAME);
@@ -43,6 +48,7 @@ public class CategoryService{
      * 카테고리 수정
      * @param request
      */
+    @CacheEvict(value="categoryList", allEntries=true)
     public void patch(UdtCategory.Request request) {
         validationPatch(request);
 
@@ -59,8 +65,11 @@ public class CategoryService{
      * 카테고리 조회
      * @return
      */
-    public List<Category> read() {
-        return categoryRepository.findAll();
+    @Cacheable("categoryList")
+    public List<CategoryDto.Response> read() {
+        return categoryRepository.findAll().stream()
+            .map(x -> CategoryDto.Response.toDto(x))
+            .collect(Collectors.toList());
     }
 
     private void validationPatch(UdtCategory.Request request) {

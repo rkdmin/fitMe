@@ -1,0 +1,22 @@
+### 주문 등록
+POST http://localhost:8080/order/1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImlhdCI6MTY2NzY0NTkzNiwiZXhwIjoxNjY3NjQ5NTM2fQ.820kdjKi9AdT3wScdgcOIYzDjU7G4fuMI7962gVAkEzeWke_DOSaLYU6BfYHjELSYh56TBmHo1ChQCaicHWaJQ
+Content-Type: application/json
+
+### 주문 조회
+GET http://localhost:8080/order/
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImlhdCI6MTY2NzY0NTkzNiwiZXhwIjoxNjY3NjQ5NTM2fQ.820kdjKi9AdT3wScdgcOIYzDjU7G4fuMI7962gVAkEzeWke_DOSaLYU6BfYHjELSYh56TBmHo1ChQCaicHWaJQ
+Content-Type: application/json
+
+### 주문 취소
+DELETE http://localhost:8080/order/1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImlhdCI6MTY2NzQ4ODA4MCwiZXhwIjoxNjY3NDkxNjgwfQ.q76Iu_J4mdLa_OvVUGGFLrn-uPQnwpxk_LTJV2rNMaAW-BzySHyVfB09uDwvisLsEs2UM_M2ZgASHyjjcPHFAw
+
+### 주문 상태 변경
+PATCH http://localhost:8080/order/1/admin-manager
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImlhdCI6MTY2NzY0NTkzNiwiZXhwIjoxNjY3NjQ5NTM2fQ.820kdjKi9AdT3wScdgcOIYzDjU7G4fuMI7962gVAkEzeWke_DOSaLYU6BfYHjELSYh56TBmHo1ChQCaicHWaJQ
+Content-Type: application/json
+
+{
+  "orderStatus": "배송완료"
+}

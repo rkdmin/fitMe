@@ -1,7 +1,6 @@
-package com.zerobase.fitme.model;
+package com.zerobase.fitme.exception;
 
 
-import com.zerobase.fitme.type.ErrorCode;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,6 +13,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class ErrorResponse {
-    private ErrorCode errorCode;
+    private String errorCode;
     private String errorMessage;
 }

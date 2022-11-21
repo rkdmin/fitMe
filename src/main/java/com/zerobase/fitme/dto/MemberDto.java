@@ -1,4 +1,4 @@
-package com.zerobase.fitme.model;
+package com.zerobase.fitme.dto;
 
 import com.zerobase.fitme.entity.Member;
 import javax.validation.constraints.Email;
@@ -6,7 +6,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import lombok.Data;
 
-public class Auth {
+public class MemberDto {
     @Data
     public static class SignIn{
         @NotBlank(message = "아이디를 입력하세요.")
@@ -38,7 +38,4 @@ public class Auth {
                     .build();
         }
     }
-
-
-
 }

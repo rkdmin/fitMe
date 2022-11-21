@@ -1,0 +1,50 @@
+### 상품 등록(매니저, 관리자)
+POST http://localhost:8080/item/register/admin-manager
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImlhdCI6MTY2NzY0NTkzNiwiZXhwIjoxNjY3NjQ5NTM2fQ.820kdjKi9AdT3wScdgcOIYzDjU7G4fuMI7962gVAkEzeWke_DOSaLYU6BfYHjELSYh56TBmHo1ChQCaicHWaJQ
+Content-Type: application/json
+
+{
+  "itemName": "상품이름2341121",
+  "url" : "url",
+  "price" : 1000,
+  "saleRate" : 10,
+  "content" : "내용1",
+  "cnt" : 3,
+  "brandId" : 2,
+  "sellerId" : 1,
+  "modelId" : 1,
+  "regItemInfo" : {
+    "material" : "소재",
+    "colorList" : [
+      "red"
+    ],
+    "sizeList" : [
+      "xl", "xxl"
+    ]
+  },
+  "categoryNameList" : [
+    "신발", "하의"
+  ]
+}
+
+### 상품 top20 조회
+GET http://localhost:8080/item/top20
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImlhdCI6MTY2NzY0NTkzNiwiZXhwIjoxNjY3NjQ5NTM2fQ.820kdjKi9AdT3wScdgcOIYzDjU7G4fuMI7962gVAkEzeWke_DOSaLYU6BfYHjELSYh56TBmHo1ChQCaicHWaJQ
+Accept: application/json
+
+### 상품 브랜드이름으로 조회
+GET http://localhost:8080/item/brand/라코스테?page=0&size=5
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImlhdCI6MTY2NzY0NTkzNiwiZXhwIjoxNjY3NjQ5NTM2fQ.820kdjKi9AdT3wScdgcOIYzDjU7G4fuMI7962gVAkEzeWke_DOSaLYU6BfYHjELSYh56TBmHo1ChQCaicHWaJQ
+Accept: application/json
+
+### 상품 카테고리이름으로 조회
+GET http://localhost:8080/item/category/신발
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImlhdCI6MTY2NzY0NTkzNiwiZXhwIjoxNjY3NjQ5NTM2fQ.820kdjKi9AdT3wScdgcOIYzDjU7G4fuMI7962gVAkEzeWke_DOSaLYU6BfYHjELSYh56TBmHo1ChQCaicHWaJQ
+Accept: application/json
+
+### 상품 상세정보 조회
+GET http://localhost:8080/item/detail/1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImlhdCI6MTY2NzY0NTkzNiwiZXhwIjoxNjY3NjQ5NTM2fQ.820kdjKi9AdT3wScdgcOIYzDjU7G4fuMI7962gVAkEzeWke_DOSaLYU6BfYHjELSYh56TBmHo1ChQCaicHWaJQ
+Accept: application/json
+
+

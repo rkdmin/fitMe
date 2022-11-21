@@ -4,7 +4,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MR
 Content-Type: application/json
 
 {
-  "categoryName": "냥2냥12"
+  "categoryName": "하의"
 }
 
 ### 카테고리 수정

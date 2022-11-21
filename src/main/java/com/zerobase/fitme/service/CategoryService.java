@@ -1,19 +1,21 @@
 package com.zerobase.fitme.service;
 
-import static com.zerobase.fitme.type.ErrorCode.ALREADY_EXIST_CATEGORY_NAME;
-import static com.zerobase.fitme.type.ErrorCode.CATEGORY_NOT_FOUND;
-import static com.zerobase.fitme.type.ErrorCode.INVALID_REQUEST;
+import static com.zerobase.fitme.exception.type.CategoryErrorCode.ALREADY_EXIST_CATEGORY_NAME;
+import static com.zerobase.fitme.exception.type.CategoryErrorCode.CATEGORY_NOT_FOUND;
+import static com.zerobase.fitme.exception.type.CategoryErrorCode.INVALID_REQUEST;
 
 import com.zerobase.fitme.entity.Category;
 import com.zerobase.fitme.exception.CategoryException;
-import com.zerobase.fitme.model.RegCategory;
+import com.zerobase.fitme.dto.CategoryDto.Request;
 import com.zerobase.fitme.model.UdtCategory;
 import com.zerobase.fitme.repository.CategoryRepository;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 @Slf4j
@@ -27,14 +29,13 @@ public class CategoryService{
      * 카테고리 등록
      * @param request
      */
-    public void register(RegCategory.Request request) {
+    public void register(Request request) {
         if(categoryRepository.findByCategoryName(request.getCategoryName()).isPresent()){
             throw new CategoryException(ALREADY_EXIST_CATEGORY_NAME);
         }
 
         categoryRepository.save(Category.builder()
                 .categoryName(request.getCategoryName())
-                .usingYn(false)// 아직 등록 안함
                 .build());
         }
 
@@ -63,11 +64,26 @@ public class CategoryService{
     }
 
     private void validationPatch(UdtCategory.Request request) {
-        if(!StringUtils.hasText(request.getCategoryName()) && request.getUsingYn() == null){
+        if(!StringUtils.hasText(request.getCategoryName())){
             throw new CategoryException(INVALID_REQUEST);
         }
         if(categoryRepository.findByCategoryName(request.getCategoryName()).isPresent()){
             throw new CategoryException(ALREADY_EXIST_CATEGORY_NAME);
         }
+    }
+
+    public List<Category> readByCategoryNameList(List<String> categoryNameList) {
+        if(CollectionUtils.isEmpty(categoryNameList)){
+            throw new CategoryException(CATEGORY_NOT_FOUND);
+        }
+
+        List<Category> categoryList = new ArrayList<>();
+        for(String categoryName: categoryNameList){
+            categoryList.add(categoryRepository.findByCategoryName(categoryName).orElseThrow(
+                () -> new CategoryException(CATEGORY_NOT_FOUND)
+            ));
+        }
+
+        return categoryList;
     }
 }

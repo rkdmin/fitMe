@@ -1,20 +1,20 @@
 package com.zerobase.fitme.service;
 
+import static com.zerobase.fitme.exception.type.MemberErrorCode.ALREADY_EXIST_ID;
+import static com.zerobase.fitme.exception.type.MemberErrorCode.INVALID_EMAIL_KEY;
+import static com.zerobase.fitme.exception.type.MemberErrorCode.LOGIN_FAIL;
+import static com.zerobase.fitme.exception.type.MemberErrorCode.USER_NOT_FOUND;
+import static com.zerobase.fitme.exception.type.MemberErrorCode.WRONG_ROLES;
 import static com.zerobase.fitme.type.Authority.ROLE_ADMIN;
 import static com.zerobase.fitme.type.Authority.ROLE_MANAGER;
 import static com.zerobase.fitme.type.Authority.ROLE_USER;
-import static com.zerobase.fitme.type.ErrorCode.ALREADY_EXIST_ID;
-import static com.zerobase.fitme.type.ErrorCode.INVALID_EMAIL_KEY;
-import static com.zerobase.fitme.type.ErrorCode.LOGIN_FAIL;
-import static com.zerobase.fitme.type.ErrorCode.USER_NOT_FOUND;
-import static com.zerobase.fitme.type.ErrorCode.WRONG_ROLES;
 
 import com.zerobase.fitme.entity.Member;
 import com.zerobase.fitme.entity.MemberDetail;
 import com.zerobase.fitme.exception.MemberException;
 import com.zerobase.fitme.mail.MailComponents;
-import com.zerobase.fitme.model.Auth;
-import com.zerobase.fitme.model.Auth.SignUp;
+import com.zerobase.fitme.dto.MemberDto;
+import com.zerobase.fitme.dto.MemberDto.SignUp;
 import com.zerobase.fitme.repository.MemberDetailRepository;
 import com.zerobase.fitme.repository.MemberRepository;
 import com.zerobase.fitme.type.EmailStatus;
@@ -50,7 +50,12 @@ public class MemberService implements UserDetailsService {
             .orElseThrow(() -> new MemberException(USER_NOT_FOUND));
     }
 
-    public Member register(Auth.SignUp request){
+    /**
+     * 회원가입
+     * @param request
+     * @return
+     */
+    public Member register(MemberDto.SignUp request){
         // 유효성 검사
         validationRegister(request);
         Optional<Member> optionalMember = memberRepository.findByUsername(request.getUsername());
@@ -76,7 +81,12 @@ public class MemberService implements UserDetailsService {
         }
     }
 
-    public Member login(Auth.SignIn member){
+    /**
+     * 로그인
+     * @param member
+     * @return
+     */
+    public Member login(MemberDto.SignIn member){
         Optional<Member> optionalMember = memberRepository.findByUsername(member.getUsername());
         if(!optionalMember.isPresent()){
             throw new MemberException(LOGIN_FAIL);
@@ -94,6 +104,11 @@ public class MemberService implements UserDetailsService {
         return optionalMember.get();
     }
 
+    /**
+     * 메일전송
+     * @param email
+     * @param emailKey
+     */
     private void sendEmail(String email, String emailKey) {
         String subject = "fitMe 가입을 축하드립니다. ";
         String text = "<p>fitMe 가입을 축하드립니다.</p>" +
@@ -102,6 +117,10 @@ public class MemberService implements UserDetailsService {
         mailComponents.sendMail(email, subject, text);
     }
 
+    /**
+     * 메일 인증
+     * @param emailKey
+     */
     public void emailAuth(String emailKey) {
         Optional<Member> optionalMember = memberRepository.findByEmailKey(emailKey);
 
@@ -120,5 +139,16 @@ public class MemberService implements UserDetailsService {
         // 업데이트
         memberRepository.save(member);
         member.setMemberDetail(memberDetailRepository.save(memberDetail));
+    }
+
+    /**
+     * username으로 Member반환
+     * @param username
+     * @return
+     */
+    public Member findByUserName(String username) {
+        return memberRepository.findByUsername(username).orElseThrow(
+            () -> new MemberException(USER_NOT_FOUND)
+        );
     }
 }

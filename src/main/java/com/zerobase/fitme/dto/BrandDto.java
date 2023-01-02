@@ -7,6 +7,7 @@ import lombok.Data;
 
 public class BrandDto {
     @Data
+    @Builder
     public static class Request{
         @NotBlank(message = "브랜드명을 입력하세요")
         private String brandName;

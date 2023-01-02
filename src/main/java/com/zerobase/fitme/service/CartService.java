@@ -37,7 +37,7 @@ public class CartService {
      * @param request
      */
     public void register(String username, Long itemId, Request request) {
-        // 알맞은 색상 또는 사이즈가 없을 경우
+        // 해당 색상 또는 사이즈가 없을 경우
         ColorType colorType = ColorType.getType(request.getColor());
         SizeType sizeType = SizeType.getType(request.getSize());
         if(colorType == null || sizeType == null){

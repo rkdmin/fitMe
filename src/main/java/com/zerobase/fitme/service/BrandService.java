@@ -79,7 +79,7 @@ public class BrandService {
     }
 
     /**
-     * 브렌드 삭제
+     * 브랜드 삭제
      * @param id
      */
     public void delete(Long id) {

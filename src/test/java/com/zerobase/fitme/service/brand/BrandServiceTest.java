@@ -61,7 +61,7 @@ class BrandServiceTest {
         // then
     }
 
-    @Test
+    @Test// 로직이 없음
     void 브랜드_조회_성공() {
         // given
 
@@ -142,6 +142,15 @@ class BrandServiceTest {
         verify(brandRepository, times(1)).save(captor.capture());
         // 브랜드 이름이 변경됐는지 확인
         assertEquals(captor.getValue().getBrandName(), newBrandName);
+    }
+
+    @Test// 로직이 없음
+    void 브랜드_삭제_성공() {
+        // given
+
+        // when
+
+        // then
     }
 
     private Brand createBrand(String name, String phone, String url){

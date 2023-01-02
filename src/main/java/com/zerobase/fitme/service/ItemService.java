@@ -1,7 +1,8 @@
 package com.zerobase.fitme.service;
 
 import static com.zerobase.fitme.exception.type.BrandErrorCode.BRAND_NOT_FOUND;
-import static com.zerobase.fitme.exception.type.ItemErrorCode.*;
+import static com.zerobase.fitme.exception.type.ItemErrorCode.ALREADY_EXIST_ITEM_NAME;
+import static com.zerobase.fitme.exception.type.ItemErrorCode.ITEM_NOT_FOUND;
 import static com.zerobase.fitme.exception.type.ModelErrorCode.MODEL_NOT_FOUND;
 import static com.zerobase.fitme.exception.type.SellerErrorCode.SELLER_NOT_FOUND;
 
@@ -17,7 +18,6 @@ import com.zerobase.fitme.exception.BrandException;
 import com.zerobase.fitme.exception.ItemException;
 import com.zerobase.fitme.exception.ModelException;
 import com.zerobase.fitme.exception.SellerException;
-import com.zerobase.fitme.exception.type.ItemErrorCode;
 import com.zerobase.fitme.repository.ItemRepository;
 import java.time.LocalDateTime;
 import java.util.List;

@@ -30,8 +30,6 @@ public class ItemInfoService {
      * @param request
      */
     public ItemInfo register(ItemInfoDto request) {
-        validationRegister(request);
-
         // 색상 불러오기
         List<ColorType> colorTypeList = new ArrayList<>();
         for(String color: request.getColorList()){
@@ -57,21 +55,5 @@ public class ItemInfoService {
                     .colorList(colorTypeList)
                     .sizeList(sizeTypeList)
                     .build());
-    }
-
-    private static void validationRegister(ItemInfoDto request) {
-        if(ObjectUtils.isEmpty(request)){
-            throw new ItemInfoException(INVALID_REQUEST);
-        }
-        if(CollectionUtils.isEmpty(request.getColorList())){
-            throw new ItemInfoException(INVALID_REQUEST);
-
-        }
-        if(CollectionUtils.isEmpty(request.getSizeList())){
-            throw new ItemInfoException(INVALID_REQUEST);
-        }
-        if(!StringUtils.hasText(request.getMaterial())){
-            throw new ItemInfoException(INVALID_REQUEST);
-        }
     }
 }

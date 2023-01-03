@@ -296,4 +296,17 @@ class CartServiceTest {
         assertEquals(captor.getValue().getSize(), SizeType.getType(requestSize));
     }
 
+    @Test
+    void 장바구니_삭제_실패_장바구니가없음() {
+        // given
+        given(cartRepository.findById(anyLong()))
+            .willReturn(Optional.empty());
+
+        // when
+        CartException exception = assertThrows(CartException.class,
+            () -> cartService.delete(1L));
+
+        // then
+        assertEquals(CartErrorCode.CART_NOT_FOUND, exception.getErrorCode());
+    }
 }

@@ -17,6 +17,7 @@ public class CartDto {
     }
 
     @Data
+    @Builder
     public static class RequestPatch{
         private String size;
         private String color;

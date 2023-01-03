@@ -11,6 +11,7 @@ import com.zerobase.fitme.entity.Item;
 import com.zerobase.fitme.entity.Member;
 import com.zerobase.fitme.exception.CartException;
 import com.zerobase.fitme.dto.CartDto.Request;
+import com.zerobase.fitme.exception.type.CartErrorCode;
 import com.zerobase.fitme.repository.CartRepository;
 import com.zerobase.fitme.type.ColorType;
 import com.zerobase.fitme.type.SizeType;
@@ -81,10 +82,18 @@ public class CartService {
             () -> new CartException(CART_NOT_FOUND)
         );
 
-        validationSizeOrColor(ColorType.getType(request.getColor()), SizeType.getType(request.getSize()), cart.getItem());
+        // null 체킹
+        if(request.getColor() == null && request.getSize() == null){
+            throw new CartException(INVALID_REQUEST);
+        }
+        ColorType color = request.getColor() == null ? null : ColorType.getType(request.getColor());
+        SizeType size = request.getSize() == null ? null : SizeType.getType(request.getSize());
+
+        // 해당 아이템에 색 또는 사이즈가 있는지 확인
+        validationSizeOrColor(color, size, cart.getItem());
 
         // 수정
-        cart.patch(request);
+        cart.patch(color, size);
 
         // 업데이트
         return Response.toDto(cartRepository.save(cart));
@@ -114,8 +123,10 @@ public class CartService {
 
     private static void validationSizeOrColor(ColorType colorType, SizeType sizeType, Item item) {
         // 상품에 색상 또는 사이즈가 있는지 검사
-        if(!item.getItemInfo().getColorList().contains(colorType) ||
-            !item.getItemInfo().getSizeList().contains(sizeType)){
+        if(colorType != null && !item.getItemInfo().getColorList().contains(colorType)){
+            throw new CartException(EMPTY_COLOR_OR_SIZE);
+        }
+        if(sizeType != null && !item.getItemInfo().getSizeList().contains(sizeType)){
             throw new CartException(EMPTY_COLOR_OR_SIZE);
         }
     }

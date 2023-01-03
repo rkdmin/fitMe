@@ -1,6 +1,5 @@
 package com.zerobase.fitme.dto;
 
-import com.zerobase.fitme.entity.Cart;
 import com.zerobase.fitme.entity.Item;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,6 +13,7 @@ import lombok.Data;
 
 public class ItemDto {
     @Data
+    @Builder
     public static class Request{
         @NotBlank(message = "상품명을 입력하세요")
         private String itemName;

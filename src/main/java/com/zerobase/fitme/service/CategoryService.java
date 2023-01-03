@@ -73,9 +73,11 @@ public class CategoryService{
     }
 
     private void validationPatch(UdtCategory.Request request) {
+        // 수정값이없음
         if(!StringUtils.hasText(request.getCategoryName())){
             throw new CategoryException(INVALID_REQUEST);
         }
+        // 이미카테고리명이존재함
         if(categoryRepository.findByCategoryName(request.getCategoryName()).isPresent()){
             throw new CategoryException(ALREADY_EXIST_CATEGORY_NAME);
         }

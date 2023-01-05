@@ -1,4 +1,4 @@
-package com.zerobase.fitme.service.item;
+package com.zerobase.fitme.item;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

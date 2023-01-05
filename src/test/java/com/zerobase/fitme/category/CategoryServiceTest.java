@@ -1,4 +1,4 @@
-package com.zerobase.fitme.service.category;
+package com.zerobase.fitme.category;
 
 import static com.zerobase.fitme.exception.type.CategoryErrorCode.ALREADY_EXIST_CATEGORY_NAME;
 import static com.zerobase.fitme.exception.type.CategoryErrorCode.CATEGORY_NOT_FOUND;

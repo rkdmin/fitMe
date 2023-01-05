@@ -1,4 +1,4 @@
-package com.zerobase.fitme.service.cart;
+package com.zerobase.fitme.cart;
 
 import static com.zerobase.fitme.type.ColorType.*;
 import static com.zerobase.fitme.type.SizeType.*;

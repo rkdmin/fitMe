@@ -1,4 +1,4 @@
-package com.zerobase.fitme.service.itemcategory;
+package com.zerobase.fitme.itemcategory;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.times;

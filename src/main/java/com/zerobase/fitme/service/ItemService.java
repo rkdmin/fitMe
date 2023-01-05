@@ -45,6 +45,7 @@ public class ItemService {
      * 상품 등록
      * @param request
      */
+    @Transactional
     public void register(ItemDto.Request request) {
         validationRegister(request);
 

@@ -2,10 +2,20 @@ package com.zerobase.fitme.item;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import com.zerobase.fitme.dto.ItemDto;
+import com.zerobase.fitme.dto.ItemInfoDto;
+import com.zerobase.fitme.entity.Brand;
+import com.zerobase.fitme.entity.Item;
+import com.zerobase.fitme.entity.ItemCategory;
+import com.zerobase.fitme.entity.Model;
+import com.zerobase.fitme.entity.Seller;
 import com.zerobase.fitme.exception.ItemException;
 import com.zerobase.fitme.exception.type.ItemErrorCode;
 import com.zerobase.fitme.repository.ItemRepository;
@@ -16,8 +26,12 @@ import com.zerobase.fitme.service.ItemInfoService;
 import com.zerobase.fitme.service.ItemService;
 import com.zerobase.fitme.service.ModelService;
 import com.zerobase.fitme.service.SellerService;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -59,4 +73,46 @@ class ItemServiceTest {
         // then
         assertEquals(ItemErrorCode.ALREADY_EXIST_ITEM_NAME, exception.getErrorCode());
     }
+
+    @Test
+    void 상품_등록_성공() {
+        // given
+        String itemName = "거위털패딩";
+        ItemDto.Request request = ItemDto.Request.builder()
+            .itemName(itemName)
+            .price(1000L)
+            .saleRate(10L)
+            .cnt(10L)
+            .brandId(1L)
+            .sellerId(1L)
+            .modelId(1L)
+            .regItemInfo(ItemInfoDto.builder()
+                .colorList(List.of("red", "white"))
+                .sizeList(List.of("l", "xl"))
+                .build())
+            .categoryNameList(List.of("신발"))
+            .build();
+
+        given(itemRepository.existsByItemName(anyString()))
+            .willReturn(false);
+        given(brandService.readById(anyLong()))
+            .willReturn(Optional.of(Brand.builder().build()));
+        given(sellerService.readById(anyLong()))
+            .willReturn(Optional.of(Seller.builder().build()));
+        given(modelService.readById(anyLong()))
+            .willReturn(Optional.of(Model.builder().build()));
+
+        ArgumentCaptor<Item> captor = ArgumentCaptor.forClass(Item.class);
+
+        // when
+        itemService.register(request);
+
+        // then
+        verify(itemRepository, times(1)).save(captor.capture());
+        assertEquals(0, captor.getValue().getView());// 조회수 0인지 체크
+        assertEquals(900, captor.getValue().getSalePrice());// 할인율 계산 확인
+        assertEquals(LocalDateTime.now().getMinute(), captor.getValue().getRegDt().getMinute());// 시간 확인
+        assertEquals(itemName, captor.getValue().getItemName());// 상품명 확인
+    }
+
 }

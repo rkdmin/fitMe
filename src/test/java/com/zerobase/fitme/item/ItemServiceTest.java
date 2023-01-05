@@ -9,11 +9,14 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import com.zerobase.fitme.dto.BrandDto;
 import com.zerobase.fitme.dto.ItemDto;
 import com.zerobase.fitme.dto.ItemInfoDto;
 import com.zerobase.fitme.entity.Brand;
+import com.zerobase.fitme.entity.Category;
 import com.zerobase.fitme.entity.Item;
 import com.zerobase.fitme.entity.ItemCategory;
+import com.zerobase.fitme.entity.ItemInfo;
 import com.zerobase.fitme.entity.Model;
 import com.zerobase.fitme.entity.Seller;
 import com.zerobase.fitme.exception.ItemException;
@@ -26,6 +29,8 @@ import com.zerobase.fitme.service.ItemInfoService;
 import com.zerobase.fitme.service.ItemService;
 import com.zerobase.fitme.service.ModelService;
 import com.zerobase.fitme.service.SellerService;
+import com.zerobase.fitme.type.ColorType;
+import com.zerobase.fitme.type.SizeType;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -115,4 +120,46 @@ class ItemServiceTest {
         assertEquals(itemName, captor.getValue().getItemName());// 상품명 확인
     }
 
+    @Test
+    void 상품_상세정보_조회_실패_상품이없음() {
+        // given
+        Long itemId = 1L;
+
+        given(itemRepository.findById(anyLong()))
+            .willReturn(Optional.empty());
+
+        // when
+        ItemException exception = assertThrows(ItemException.class,
+            () -> itemService.readDetail(itemId));
+
+        // then
+        assertEquals(ItemErrorCode.ITEM_NOT_FOUND, exception.getErrorCode());
+    }
+
+    @Test
+    void 상품_상세정보_조회_성공() {
+        // given
+        Long itemId = 1L;
+        long view = 100L;// 조회수 100(결과는 1높아야함)
+        given(itemRepository.findById(anyLong()))
+            .willReturn(Optional.of(Item.builder().view(view).build()));
+        given(itemRepository.save(any()))
+            .willReturn(Item.builder()
+                .itemInfo(ItemInfo.builder().material("123").colorList(List.of(ColorType.RED)).sizeList(List.of(
+                    SizeType.L)).build())
+                .brand(Brand.builder().build())
+                .seller(Seller.builder().build())
+                .model(Model.builder().build())
+                .itemCategoryList(List.of(ItemCategory.builder().category(Category.builder().build()).build()))
+                .build());
+
+        ArgumentCaptor<Item> captor = ArgumentCaptor.forClass(Item.class);
+
+        // when
+        itemService.readDetail(itemId);
+
+        // then
+        verify(itemRepository, times(1)).save(captor.capture());
+        assertEquals(view + 1, captor.getValue().getView());
+    }
 }

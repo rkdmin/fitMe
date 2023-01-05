@@ -103,4 +103,34 @@ class ModelServiceTest {
         verify(modelRepository, times(1)).save(captor.capture());
         assertEquals(requestModelName, captor.getValue().getModelName());
     }
+
+    @Test
+    void 모델_삭제_실패_모델이없음() {
+        // given
+        Long modelId = 1L;
+
+        given(modelRepository.findById(anyLong()))
+            .willReturn(Optional.empty());
+
+        // when
+        ModelException exception = assertThrows(ModelException.class,
+            () -> modelService.delete(modelId));
+
+        // then
+        assertEquals(MODEL_NOT_FOUND, exception.getErrorCode());
+    }
+
+    @Test
+    void 모델_삭제_성공() {
+        // given
+        Long modelId = 1L;
+
+        given(modelRepository.findById(anyLong()))
+            .willReturn(Optional.of(Model.builder().build()));
+
+        // when
+        modelService.delete(modelId);
+
+        // then
+    }
 }

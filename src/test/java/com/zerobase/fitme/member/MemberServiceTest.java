@@ -13,6 +13,7 @@ import com.zerobase.fitme.dto.BrandDto;
 import com.zerobase.fitme.dto.MemberDto.SignIn;
 import com.zerobase.fitme.dto.MemberDto.SignUp;
 import com.zerobase.fitme.entity.Member;
+import com.zerobase.fitme.entity.MemberDetail;
 import com.zerobase.fitme.exception.BrandException;
 import com.zerobase.fitme.exception.MemberException;
 import com.zerobase.fitme.exception.type.BrandErrorCode;
@@ -22,6 +23,7 @@ import com.zerobase.fitme.repository.MemberDetailRepository;
 import com.zerobase.fitme.repository.MemberRepository;
 import com.zerobase.fitme.service.MemberService;
 import com.zerobase.fitme.type.EmailStatus;
+import com.zerobase.fitme.type.MemberStatus;
 import java.util.AbstractList;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
@@ -202,5 +204,44 @@ class MemberServiceTest {
         memberService.login(request);
 
         // then
+    }
+
+    @Test
+    void 메일_인증_실패_잘못된메일키() {
+        // given
+        String requestEmailKey = "123456";
+
+        given(memberRepository.findByEmailKey(anyString()))
+            .willReturn(Optional.empty());
+
+        // when
+        MemberException exception = assertThrows(MemberException.class,
+            () -> memberService.emailAuth(requestEmailKey));
+
+        // then
+        assertEquals(INVALID_EMAIL_KEY, exception.getErrorCode());
+    }
+
+    @Test
+    void 메일_인증_성공() {
+        // given
+        String emailKey = "123456";
+
+        given(memberRepository.findByEmailKey(anyString()))
+            .willReturn(Optional.of(Member.builder().build()));
+
+        ArgumentCaptor<Member> captor1 = ArgumentCaptor.forClass(Member.class);
+        ArgumentCaptor<MemberDetail> captor2 = ArgumentCaptor.forClass(MemberDetail.class);
+
+
+        // when
+        memberService.emailAuth(emailKey);
+
+        // then
+        verify(memberRepository, times(1)).save(captor1.capture());
+        verify(memberDetailRepository, times(1)).save(captor2.capture());
+        assertEquals(null, captor1.getValue().getEmailKey());
+        assertEquals(EmailStatus.S, captor1.getValue().getEmailStatus());
+        assertEquals(MemberStatus.S, captor2.getValue().getStatus());
     }
 }

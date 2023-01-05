@@ -103,4 +103,34 @@ class SellerServiceTest {
         verify(sellerRepository, times(1)).save(captor.capture());
         assertEquals(requestPhone, captor.getValue().getPhone());
     }
+
+    @Test
+    void 판매자_삭제_실패_판매자가없음() {
+        // given
+        Long sellerId = 1L;
+
+        given(sellerRepository.findById(anyLong()))
+            .willReturn(Optional.empty());
+
+        // when
+        SellerException exception = assertThrows(SellerException.class,
+            () -> sellerService.delete(sellerId));
+
+        // then
+        assertEquals(SELLER_NOT_FOUND, exception.getErrorCode());
+    }
+
+    @Test
+    void 판매자_삭제_성공() {
+        // given
+        Long sellerId = 1L;
+
+        given(sellerRepository.findById(anyLong()))
+            .willReturn(Optional.of(Seller.builder().build()));
+
+        // when
+        sellerService.delete(sellerId);
+
+        // then
+    }
 }

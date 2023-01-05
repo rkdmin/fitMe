@@ -1,8 +1,10 @@
 package com.zerobase.fitme.order;
 
 import static com.zerobase.fitme.exception.type.OrderErrorCode.ALREADY_START_ITEM;
+import static com.zerobase.fitme.exception.type.OrderErrorCode.INVALID_REQUEST;
 import static com.zerobase.fitme.exception.type.OrderErrorCode.ORDER_NOT_FOUND;
 import static com.zerobase.fitme.exception.type.OrderErrorCode.OUT_OF_STOCK;
+import static com.zerobase.fitme.type.OrderStatus.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -12,6 +14,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import com.zerobase.fitme.dto.OrderDto.RequestPatch;
 import com.zerobase.fitme.entity.Cart;
 import com.zerobase.fitme.entity.Item;
 import com.zerobase.fitme.entity.Member;
@@ -96,7 +99,7 @@ class OrderServiceTest {
         verify(cartService, times(cartIdList.size())).delete(captor2.capture());
         assertEquals(cnt - 1, captor.getValue().getItem().getCnt());// 재고확인
         assertEquals(LocalDateTime.now().getMinute(), captor.getValue().getRegDt().getMinute());// 날짜확인
-        assertEquals(OrderStatus.준비중, captor.getValue().getOrderStatus());// 준비중인지확인
+        assertEquals(준비중, captor.getValue().getOrderStatus());// 준비중인지확인
         assertEquals(cartIdList.get(cartIdList.size() - 1), captor2.getValue());// 장바구니가 잘 삭제됐는지 확인
     }
 
@@ -123,7 +126,7 @@ class OrderServiceTest {
 
         given(orderRepository.findById(anyLong()))
             .willReturn(Optional.of(Order.builder()
-                    .orderStatus(OrderStatus.배송완료)// 이미 배송이 완료
+                    .orderStatus(배송완료)// 이미 배송이 완료
                     .build()));
 
         // when
@@ -147,7 +150,7 @@ class OrderServiceTest {
             .willReturn(Optional.of(Order.builder()
                     .id(1L)
                     .item(item)
-                    .orderStatus(OrderStatus.준비중)
+                    .orderStatus(준비중)
                     .build()));
 
         ArgumentCaptor<Item> captor = ArgumentCaptor.forClass(Item.class);
@@ -158,5 +161,70 @@ class OrderServiceTest {
         // then
         verify(itemService, times(1)).update(captor.capture());
         assertEquals(cnt + 1, captor.getValue().getCnt());// 재고 늘어남
+    }
+
+    @Test
+    void 주문_상태_변경_실패_잘못된주문상태() {
+        // given
+        RequestPatch request = RequestPatch.builder()
+            .orderStatus("환불중")// 잘못된 주문상태
+            .build();
+        Long orderId = 1L;
+
+        // when
+        OrderException exception = assertThrows(OrderException.class,
+            () -> orderService.patchOrderStatus(request, orderId));
+
+        // then
+        assertEquals(INVALID_REQUEST, exception.getErrorCode());
+    }
+
+    @Test
+    void 주문_상태_변경_실패_주문이없음() {
+        // given
+        RequestPatch request = RequestPatch.builder()
+            .orderStatus("준비중")
+            .build();
+        Long orderId = 1L;
+
+        given(orderRepository.findById(anyLong()))
+            .willReturn(Optional.empty());// 주문이 없음
+
+        // when
+        OrderException exception = assertThrows(OrderException.class,
+            () -> orderService.patchOrderStatus(request, orderId));
+
+        // then
+        assertEquals(ORDER_NOT_FOUND, exception.getErrorCode());
+    }
+
+    @Test
+    void 주문_상태_변경_성공() {
+        // given
+        String requestStatus = "배송완료";// 바꿀 주문상태
+        OrderStatus status = 준비중;// 원래 주문상태
+        RequestPatch request = RequestPatch.builder()
+            .orderStatus(requestStatus)
+            .build();
+        Long orderId = 1L;
+        Order order = Order.builder()
+            .orderStatus(status)// 원래 준비중
+            .member(Member.builder().build())
+            .item(Item.builder().build())
+            .build();
+        given(orderRepository.findById(anyLong()))
+            .willReturn(Optional.of(order));
+        given(orderRepository.save(any()))
+            .willReturn(order);
+
+        ArgumentCaptor<Order> captor = ArgumentCaptor.forClass(Order.class);
+
+        // when
+        orderService.patchOrderStatus(request, orderId);
+
+        // then
+        verify(orderRepository, times(1)).save(captor.capture());
+        // 배송상태 변경됐는지 확인
+        assertEquals(OrderStatus.getType(requestStatus), captor.getValue().getOrderStatus());
     }
 }

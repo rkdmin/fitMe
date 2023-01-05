@@ -15,6 +15,7 @@ public class OrderDto {
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
+    @Builder
     public static class RequestPatch {
         @NotBlank(message = "주문 상태를 입력해주세요")
         private String orderStatus;

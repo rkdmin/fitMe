@@ -98,6 +98,4 @@ public class ModelService {
             throw new ModelException(INVALID_REQUEST);
         }
     }
-
-
 }

@@ -8,6 +8,7 @@ import lombok.Data;
 
 public class CartDto {
     @Data
+    @Builder
     public static class Request{
         @NotNull(message = "사이즈를 입력하세요")
         private String size;
@@ -16,6 +17,7 @@ public class CartDto {
     }
 
     @Data
+    @Builder
     public static class RequestPatch{
         private String size;
         private String color;

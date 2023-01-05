@@ -39,12 +39,12 @@ public class Cart {
     private ColorType color;
     private SizeType size;
 
-    public void patch(CartDto.RequestPatch request) {
-        if(StringUtils.hasText(request.getColor())){
-            this.color = ColorType.getType(request.getColor());
+    public void patch(ColorType color, SizeType size) {
+        if(color != null){
+            this.color = color;
         }
-        if(StringUtils.hasText(request.getSize())){
-            this.size = SizeType.getType(request.getSize());
+        if(size != null){
+            this.size = size;
         }
     }
 }

@@ -79,7 +79,7 @@ public class BrandService {
     }
 
     /**
-     * 브렌드 삭제
+     * 브랜드 삭제
      * @param id
      */
     public void delete(Long id) {
@@ -89,10 +89,13 @@ public class BrandService {
     }
 
     private void validationPatch(UdtBrand.Request request) {
+        // 수정값이 없음
         if(!StringUtils.hasText(request.getBrandName()) && !StringUtils.hasText(request.getPhone())
             && !StringUtils.hasText(request.getUrl())){
             throw new BrandException(INVALID_REQUEST);
         }
+
+        // 이미 존재하는 브랜드 이름
         if(brandRepository.findByBrandName(request.getBrandName()).isPresent()){
             throw new BrandException(ALREADY_EXIST_BRAND_NAME);
         }

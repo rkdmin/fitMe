@@ -1,5 +1,5 @@
 ### 회원가입
-POST http://localhost:8080/member/signup
+POST http://localhost:5000/member/signup
 Content-Type: application/json
 
 {
@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 
 ### 로그인
-POST http://localhost:8080/member/signin
+POST http://ec2-54-180-162-8.ap-northeast-2.compute.amazonaws.com:8081/member/signin
 Content-Type: application/json
 
 {

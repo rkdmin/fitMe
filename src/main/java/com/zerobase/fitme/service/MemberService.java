@@ -92,14 +92,13 @@ public class MemberService implements UserDetailsService {
             throw new MemberException(LOGIN_FAIL);
         }
 
-        if(!passwordEncoder.matches(member.getPassword(), optionalMember.get().getPassword())){
+        if(!passwordEncoder.encode(member.getPassword()).equals(optionalMember.get().getPassword())){
             throw new MemberException(LOGIN_FAIL);
         }
 
-        // 테스트 할 때 불편해서 주석처리
-//        if(optionalMember.get().getEmailStatus() == EmailStatus.F){
-//            throw new MemberException(LOGIN_FAIL);
-//        }
+        if(optionalMember.get().getEmailStatus() == EmailStatus.F){
+            throw new MemberException(LOGIN_FAIL);
+        }
 
         return optionalMember.get();
     }

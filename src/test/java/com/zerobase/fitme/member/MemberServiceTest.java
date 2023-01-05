@@ -10,6 +10,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import com.zerobase.fitme.dto.BrandDto;
+import com.zerobase.fitme.dto.MemberDto.SignIn;
 import com.zerobase.fitme.dto.MemberDto.SignUp;
 import com.zerobase.fitme.entity.Member;
 import com.zerobase.fitme.exception.BrandException;
@@ -20,6 +21,7 @@ import com.zerobase.fitme.mail.MailComponents;
 import com.zerobase.fitme.repository.MemberDetailRepository;
 import com.zerobase.fitme.repository.MemberRepository;
 import com.zerobase.fitme.service.MemberService;
+import com.zerobase.fitme.type.EmailStatus;
 import java.util.AbstractList;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
@@ -107,5 +109,98 @@ class MemberServiceTest {
         // then
         verify(memberRepository, times(1)).save(captor.capture());
         assertEquals(encodePassword, captor.getValue().getPassword());
+    }
+
+    @Test
+    void 로그인_실패_잘못된아이디() {
+        // given
+        String username = "user123";
+        SignIn request = SignIn.builder().username(username).build();
+
+        given(memberRepository.findByUsername(anyString()))
+            .willReturn(Optional.empty());
+
+        // when
+        MemberException exception = assertThrows(MemberException.class,
+            () -> memberService.login(request));
+
+        // then
+        assertEquals(LOGIN_FAIL, exception.getErrorCode());
+    }
+
+    @Test
+    void 로그인_실패_잘못된패스워드() {
+        // given
+        String username = "user123";
+        String requestPassword = "abc123!!";// 새로 요청하는 비밀번호(4가빠짐)
+        String password = "encodeabc1234!!";// 원래 비밀번호
+        SignIn request = SignIn.builder()
+            .username(username)
+            .password(requestPassword)
+            .build();
+
+        given(memberRepository.findByUsername(anyString()))
+            .willReturn(Optional.of(Member.builder().password(password).build()));
+        given(passwordEncoder.encode(any()))
+            .willReturn("encode" + requestPassword);
+
+        // when
+        MemberException exception = assertThrows(MemberException.class,
+            () -> memberService.login(request));
+
+        // then
+        assertEquals(LOGIN_FAIL, exception.getErrorCode());
+    }
+
+    @Test
+    void 로그인_실패_인증미완료이메일() {
+        // given
+        String username = "user123";
+        String requestPassword = "abc1234!!";
+        String password = "encodeabc1234!!";
+        SignIn request = SignIn.builder()
+            .username(username)
+            .password(requestPassword)
+            .build();
+
+        given(memberRepository.findByUsername(anyString()))
+            .willReturn(Optional.of(Member.builder()
+                    .password(password)
+                    .emailStatus(EmailStatus.F)// 인증 미완료
+                    .build()));
+        given(passwordEncoder.encode(any()))
+            .willReturn("encode" + requestPassword);
+
+        // when
+        MemberException exception = assertThrows(MemberException.class,
+            () -> memberService.login(request));
+
+        // then
+        assertEquals(LOGIN_FAIL, exception.getErrorCode());
+    }
+
+    @Test
+    void 로그인_성공() {
+        // given
+        String username = "user123";
+        String requestPassword = "abc1234!!";
+        String password = "encodeabc1234!!";
+        SignIn request = SignIn.builder()
+            .username(username)
+            .password(requestPassword)
+            .build();
+
+        given(memberRepository.findByUsername(anyString()))
+            .willReturn(Optional.of(Member.builder()
+                .password(password)
+                .emailStatus(EmailStatus.S)// 인증 성공
+                .build()));
+        given(passwordEncoder.encode(any()))
+            .willReturn("encode" + requestPassword);
+
+        // when
+        memberService.login(request);
+
+        // then
     }
 }

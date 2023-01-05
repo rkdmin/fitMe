@@ -10,6 +10,7 @@ import lombok.Data;
 
 public class MemberDto {
     @Data
+    @Builder
     public static class SignIn{
         @NotBlank(message = "아이디를 입력하세요.")
         private String username;

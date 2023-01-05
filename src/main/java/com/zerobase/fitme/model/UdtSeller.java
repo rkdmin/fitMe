@@ -2,9 +2,11 @@ package com.zerobase.fitme.model;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import lombok.Builder;
 import lombok.Data;
 
 public class UdtSeller {
+    @Builder
     @Data
     public static class Request{
         private String companyName;

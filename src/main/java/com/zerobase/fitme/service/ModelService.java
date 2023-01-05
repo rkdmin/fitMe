@@ -3,9 +3,9 @@ package com.zerobase.fitme.service;
 import static com.zerobase.fitme.exception.type.ModelErrorCode.INVALID_REQUEST;
 import static com.zerobase.fitme.exception.type.ModelErrorCode.MODEL_NOT_FOUND;
 
+import com.zerobase.fitme.dto.ModelDto;
 import com.zerobase.fitme.entity.Model;
 import com.zerobase.fitme.exception.ModelException;
-import com.zerobase.fitme.dto.ModelDto;
 import com.zerobase.fitme.model.UdtModel;
 import com.zerobase.fitme.repository.ModelRepository;
 import java.time.LocalDateTime;
@@ -98,6 +98,4 @@ public class ModelService {
             throw new ModelException(INVALID_REQUEST);
         }
     }
-
-
 }

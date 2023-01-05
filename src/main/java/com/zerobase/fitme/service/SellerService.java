@@ -74,7 +74,7 @@ public class SellerService {
         validationPatch(request);
 
         Seller seller = sellerRepository.findById(id).orElseThrow(() ->
-            new SellerException(INVALID_REQUEST)
+            new SellerException(SELLER_NOT_FOUND)
         );
 
         seller.setId(id);

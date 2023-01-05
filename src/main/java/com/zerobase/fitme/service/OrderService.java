@@ -92,7 +92,7 @@ public class OrderService {
         }
 
         // 상품재고+1
-        Item item = itemService.findByItemId(order.getId());
+        Item item = order.getItem();
         item.setCnt(item.getCnt() + 1);
         itemService.update(item);
 

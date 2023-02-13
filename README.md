@@ -15,13 +15,13 @@ https://www.erdcloud.com/d/y3sFavJkybtpSCNdi
 
 ## 기술스택
 
-### 목표
+### 목표 달성
 
 1. Jwt 토큰을 이용한 로그인 및 권한 검사
 2. 많은 트래픽을 대비할 redis 캐시 사용
 3. Junit을 이용한 유닛 테스트
 
-### 스택
+### 사용한 기술 스택
 - SpringBoot
 - Gradle
 - Validation
